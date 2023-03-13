@@ -5,6 +5,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timing/root_screen.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
 import 'amplifyconfiguration.dart';
@@ -44,7 +45,7 @@ class TimingApp extends StatelessWidget {
           // set the default theme
           theme: ThemeData.from(
             colorScheme: ColorScheme.fromSwatch(
-              primarySwatch: Colors.red,
+              primarySwatch: Colors.deepOrange,
               backgroundColor: Colors.white,
             ),
           ).copyWith(
@@ -61,24 +62,7 @@ class TimingApp extends StatelessWidget {
           // set the theme mode to respond to the user's system preferences (optional)
           themeMode: ThemeMode.system,
           builder: Authenticator.builder(),
-          home: Consumer<TimingViewModel>(builder: (context, model, child) {
-            return Scaffold(
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  FilledButton(
-                      onPressed: () {
-                        model.currentUserId();
-                      },
-                      child: Text(
-                        'currentUserId',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ],
-              ),
-            );
-          }),
+          home: const RootScreen(),
         ),
       ),
     );
