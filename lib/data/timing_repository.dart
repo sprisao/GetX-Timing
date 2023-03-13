@@ -186,4 +186,33 @@ class TimingRepository {
       safePrint('Mutation failed: $e');
     }
   }
+
+  Future<void> createLocationItem(
+      {required String name,
+      required String titleEN,
+      required String titleKR}) async {
+    const String provinceId = "6f490f64-6d04-4a5f-8de9-d0eb09f477cb";
+
+    try {
+      final provinceResponse = await Amplify.API
+          .query(request: ModelQueries.get(Province.classType, provinceId))
+          .response;
+      final model = Location(
+          name: name,
+          titleEN: titleEN,
+          titleKR: titleKR,
+          province: provinceResponse.data as Province);
+      final request = ModelMutations.create(model);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      final createdLocation = response.data;
+      if (createdLocation == null) {
+        safePrint('errors: ${response.errors}');
+        return;
+      }
+      safePrint('Mutation result: ${createdLocation.id}');
+    } on ApiException catch (e) {
+      safePrint('Mutation failed: $e');
+    }
+  }
 }

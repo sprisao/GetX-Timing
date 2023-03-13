@@ -21,13 +21,21 @@ class LocalActivityItem {
   String emoji;
   String titleKR;
   String category;
-
   LocalActivityItem({required this.name, required this.emoji, required this.titleKR, required this.category});
 }
 
+class LocalLocationItem {
+  String name;
+  String titleEN;
+  String titleKR;
+  LocalLocationItem({required this.name, required this.titleEN, required this.titleKR});
+}
+
+
+
 class _AddScheduleScreenState extends State<AddScheduleScreen> {
 
-  Future<List<LocalActivityItem>> convertAndAdd() async{
+  Future<List<LocalActivityItem>> getLocalActivityItems() async{
     String jsonString = await rootBundle.loadString('assets/activity_item.json');
     final jsonData = json.decode(jsonString);
     List<LocalActivityItem> localActivityItems = [];
@@ -44,6 +52,21 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
     }
     return localActivityItems;
   }
+
+  Future<List<LocalLocationItem>> getLocalLocationItems() async{
+    String jsonString = await rootBundle.loadString('assets/location_list.json');
+    final jsonData = json.decode(jsonString);
+    List<LocalLocationItem> localLocationItems = [];
+    for (var item in jsonData) {
+      localLocationItems.add(LocalLocationItem(
+        name: item['name'],
+        titleEN: item['titleEN'],
+        titleKR: item['titleKR'],
+      ));
+    }
+    return localLocationItems;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +86,10 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
             children: [
               FilledButton(
                   onPressed: () {
-                    Future<List<LocalActivityItem>> localActivityItems = convertAndAdd();
+                    Future<List<LocalActivityItem>> localActivityItems = getLocalActivityItems();
                     localActivityItems.then((value) {
                       for (var item in value) {
                         safePrint(item.titleKR);
-                        // viewModel.createActivityItem(
-                        //     name: item.name,
-                        //     emoji: item.emoji,
-                        //     titleKR: item.titleKR,
-                        //     category: item.category);
                        viewModel.createActivityItem(
                             name: item.name,
                             emoji: item.emoji,
@@ -82,6 +100,18 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                   },
                   child: Text('활동 데이터 가져오기')
               ),
+              FilledButton(onPressed: (){
+                Future<List<LocalLocationItem>> localLocationItems = getLocalLocationItems();
+                localLocationItems.then((value) {
+                  for (var item in value) {
+                    safePrint(item.titleKR);
+                    viewModel.createLocationItem(
+                        name: item.name,
+                        titleEN: item.titleEN,
+                        titleKR: item.titleKR);
+                  }
+                });
+              }, child: Text('지역 데이터 생성')),
               FilledButton(
                   onPressed: () {
                     Future<List<Location?>> locationList =

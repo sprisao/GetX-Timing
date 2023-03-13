@@ -1,0 +1,139 @@
+[
+  {
+    "name": "gangnam",
+    "titleKR": "강남구",
+    "titleEN": "Gangnam"
+  },
+  {
+    "name": "gangdong",
+    "titleKR": "강동구",
+    "titleEN": "Gangdong"
+  },
+  {
+    "name": "gangbuk",
+    "titleKR": "강북구",
+    "titleEN": "Gangbuk"
+  },
+  {
+    "name": "gangseo",
+    "titleKR": "강서구",
+    "titleEN": "Gangseo"
+  },
+  {
+    "name": "gwanak",
+    "titleKR": "관악구",
+    "titleEN": "Gwanak"
+  },
+  {
+    "name": "gwangjin",
+    "titleKR": "광진구",
+    "titleEN": "Gwangjin"
+  },
+  {
+    "name": "guro",
+    "titleKR": "구로구",
+    "titleEN": "Guro"
+  },
+  {
+    "name": "geumcheon",
+    "titleKR": "금천구",
+    "titleEN": "Geumcheon"
+  },
+  {
+    "name": "nowon",
+    "titleKR": "노원구",
+    "titleEN": "Nowon"
+  },
+  {
+    "name": "dobong",
+    "titleKR": "도봉구",
+    "titleEN": "Dobong"
+  },
+  {
+    "name": "dongdaemun",
+    "titleKR": "동대문구",
+    "titleEN": "Dongdaemun"
+  },
+  {
+    "name": "dongjak",
+    "titleKR": "동작구",
+    "titleEN": "Dongjak"
+  },
+  {
+    "name": "mapo",
+    "titleKR": "마포구",
+    "titleEN": "Mapo"
+  },
+  {
+    "name": "seodaemun",
+    "titleKR": "서대문구",
+    "titleEN": "Seodaemun"
+  },
+  {
+    "name": "seocho",
+    "titleKR": "서초구",
+    "titleEN": "Seocho"
+  },
+  {
+    "name": "seongdong",
+    "titleKR": "성동구",
+    "titleEN": "Seongdong"
+  },
+  {
+    "name": "seongbuk",
+    "titleKR": "성북구",
+    "titleEN": "Seongbuk"
+  },
+  {
+    "name": "songpa",
+    "titleKR": "송파구",
+    "titleEN": "Songpa"
+  },
+  {
+    "name": "yangcheon",
+    "titleKR": "양천구",
+    "titleEN": "Yangcheon"
+  },
+  {
+    "name": "yeongdeungpo",
+    "titleKR": "영등포구",
+    "titleEN": "Yeongdeungpo"
+  },
+  {
+    "name": "yongsan",
+    "titleKR": "용산구",
+    "titleEN": "Yongsan"
+  },
+  {
+    "name": "eunpyeong",
+    "titleKR": "은평구",
+    "titleEN": "Eunpyeong"
+  },
+  {
+    "name": "jungnang",
+    "titleKR": "중랑구",
+    "titleEN": "Jungnang"
+  },
+  {
+    "name": "dongdaemun",
+    "titleKR": "동대문구",
+    "titleEN": "Dongdaemun"
+  },
+  {
+    "name": "jungrang",
+    "titleKR": "중구",
+    "titleEN": "Jung-gu"
+  },
+  {
+    "name": "gwangjin",
+    "titleKR": "광진구",
+    "titleEN": "Gwangjin"
+  },
+  {
+    "name": "seodaemun",
+    "titleKR": "서대문구",
+    "titleEN": "Seodaemun"
+  }
+]
+
+

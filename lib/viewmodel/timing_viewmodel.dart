@@ -57,4 +57,12 @@ class TimingViewModel with ChangeNotifier {
         name: name, emoji: emoji, titleKR: titleKR, category: category);
     notifyListeners();
   }
+
+  void createLocationItem(
+      {required String name,
+      required String titleEN,
+      required String titleKR}) {
+    _repository.createLocationItem(
+        name: name, titleEN: titleEN, titleKR: titleKR);
+  }
 }
