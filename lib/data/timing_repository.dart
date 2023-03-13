@@ -1,9 +1,7 @@
 import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-
-import '../models/ActivityCategory.dart';
-import '../models/User.dart';
+import 'package:timing/models/ModelProvider.dart';
 
 class TimingRepository {
   /*Auth CurrentAuthenticatedUser*/
@@ -31,33 +29,34 @@ class TimingRepository {
   2. 만약 해당 이메일로 생성된 User가 있다면 생성하지 않음
 */
   Future<void> initUser() async {
+    final user = await Amplify.Auth.getCurrentUser();
+    final userId = user.userId;
+
     try {
       final userAttributes = await Amplify.Auth.fetchUserAttributes();
       for (final element in userAttributes) {
         if (element.userAttributeKey.toString() == "email") {
           final userEmail = element.value;
-          final user = User(email: userEmail);
-
-          final userDataRequest = ModelQueries.list(User.classType,
-              where: User.EMAIL.eq(userEmail));
-          final userDataResponse =
-          await Amplify.API.query(request: userDataRequest).response;
+          final userDataRequest = ModelQueries.list(User.classType, where: User.ID.eq(userId));
+          final userDataResponse = await Amplify.API.query(request: userDataRequest).response;
 
           if (userDataResponse.data?.items.isEmpty ?? true) {
-            final userCreateRequest = ModelMutations.create(user);
-            final response =
-            await Amplify.API.mutate(request: userCreateRequest).response;
+            final userToCreate = User(id: userId, email: userEmail);
+            final userCreateRequest = ModelMutations.create(userToCreate);
+            final response = await Amplify.API.mutate(request: userCreateRequest).response;
+
             final createdUser = response.data;
             if (createdUser == null) {
-              safePrint('errors: ${response.errors}');
+              safePrint('Error creating user: ${response.errors}');
               return;
             }
-            safePrint('Mutation result: ${createdUser.id}');
+            safePrint('New user created: ${createdUser.id}');
           }
+          safePrint('User already exists: $userId');
         }
       }
     } on ApiException catch (e) {
-      safePrint('Mutation failed: $e');
+      safePrint('Failed to initialize user: $e');
     }
   }
 
