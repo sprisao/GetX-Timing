@@ -7,6 +7,8 @@ import 'package:timing/view/profile_screen.dart';
 import 'package:timing/view/swipe_screen.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
+import 'my_flutter_app_icons.dart';
+
 class RootScreen extends StatefulWidget {
   const RootScreen({Key? key}) : super(key: key);
 
@@ -46,19 +48,31 @@ class _RootScreenState extends State<RootScreen> {
           },
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                CustomIcons.navi_icon_home,
+                size: 45,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(
+                CustomIcons.navi_icon_timing,
+                size: 45,
+              ),
               label: 'Swipe',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
+              icon: Icon(
+                CustomIcons.navi_icon_likes,
+                size: 45,
+              ),
               label: 'Like',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(
+                CustomIcons.navi_home_profile,
+                size: 45,
+              ),
               label: 'Profile',
             ),
           ],
