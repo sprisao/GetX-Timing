@@ -6,6 +6,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timing/root_screen.dart';
+import 'package:timing/style/theme.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
 import 'amplifyconfiguration.dart';
@@ -41,24 +42,10 @@ class TimingApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => TimingViewModel())
         ],
         child: MaterialApp(
+          color: ColorTheme.primary,
+          theme: TimingTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           // set the default theme
-          theme: ThemeData.from(
-            colorScheme: ColorScheme.fromSwatch(
-              primarySwatch: Colors.deepOrange,
-              backgroundColor: Colors.white,
-            ),
-          ).copyWith(
-            indicatorColor: Colors.red,
-          ),
-          // set the dark theme (optional)
-          darkTheme: ThemeData.from(
-            colorScheme: ColorScheme.fromSwatch(
-              primarySwatch: Colors.red,
-              backgroundColor: Colors.black,
-              brightness: Brightness.dark,
-            ),
-          ),
           // set the theme mode to respond to the user's system preferences (optional)
           themeMode: ThemeMode.system,
           builder: Authenticator.builder(),
