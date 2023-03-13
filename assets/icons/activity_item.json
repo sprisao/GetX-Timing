@@ -1,0 +1,333 @@
+[
+  {
+    "activitycategoryID": "97763c4e-0abf-4daa-a07b-57de5baf2dd9",
+    "items": [
+      {
+        "emoji": "⛺️",
+        "name": "camping",
+        "titleKR": "캠핑"
+      },
+      {
+        "emoji": "🏕",
+        "name": "glamping",
+        "titleKR": "글램핑"
+      },
+      {
+        "emoji": "🚵️",
+        "name": "mountainBiking",
+        "titleKR": "마운틴 바이킹"
+      },
+      {
+        "emoji": "🚣️",
+        "name": "canoeing",
+        "titleKR": "카누"
+      },
+      {
+        "emoji": "🎣",
+        "name": "fishing",
+        "titleKR": "낚시"
+      },
+      {
+        "emoji": "🏹",
+        "name": "archery",
+        "titleKR": "양궁"
+      },
+      {
+        "emoji": "🐴",
+        "name": "horsebackRiding",
+        "titleKR": "승마"
+      },
+      {
+        "emoji": "🌲",
+        "name": "hiking",
+        "titleKR": "등산"
+      },
+      {
+        "emoji": "🍄",
+        "name": "mushroomPicking",
+        "titleKR": "버섯채집"
+      },
+      {
+        "emoji": "🌻",
+        "name": "sunflowerField",
+        "titleKR": "해바라기밭"
+      }
+    ]
+  },
+  {
+    "activitycategoryID": "b84ff160-1d0c-463d-b94e-e16d2f788acd",
+    "items": [
+      {
+        "emoji": "🏀",
+        "name": "Basketball",
+        "titleKR": "농구"
+      },
+      {
+        "emoji": "⚽️",
+        "name": "Soccer",
+        "titleKR": "축구"
+      },
+      {
+        "emoji": "🏐",
+        "name": "Volleyball",
+        "titleKR": "배구"
+      },
+      {
+        "emoji": "🏈",
+        "name": "Football",
+        "titleKR": "미식축구"
+      },
+      {
+        "emoji": "🎾",
+        "name": "Tennis",
+        "titleKR": "테니스"
+      },
+      {
+        "emoji": "🏓",
+        "name": "Table Tennis",
+        "titleKR": "탁구"
+      },
+      {
+        "emoji": "🏸",
+        "name": "Badminton",
+        "titleKR": "배드민턴"
+      },
+      {
+        "emoji": "🥊",
+        "name": "Boxing",
+        "titleKR": "복싱"
+      },
+      {
+        "emoji": "🥋",
+        "name": "Martial Arts",
+        "titleKR": "무예"
+      },
+      {
+        "emoji": "🏋️‍♀️",
+        "name": "Weightlifting",
+        "titleKR": "역도"
+      }
+    ]
+  },
+  {
+    "activitycategoryID": "b84ff160-1d0c-463d-b94e-e16d2f788acd",
+    "items": [
+      {
+        "emoji": "🏀",
+        "name": "Basketball",
+        "titleKR": "농구"
+      },
+      {
+        "emoji": "⚽️",
+        "name": "Soccer",
+        "titleKR": "축구"
+      },
+      {
+        "emoji": "🏐",
+        "name": "Volleyball",
+        "titleKR": "배구"
+      },
+      {
+        "emoji": "🏈",
+        "name": "Football",
+        "titleKR": "미식축구"
+      },
+      {
+        "emoji": "🎾",
+        "name": "Tennis",
+        "titleKR": "테니스"
+      },
+      {
+        "emoji": "🏓",
+        "name": "Table Tennis",
+        "titleKR": "탁구"
+      },
+      {
+        "emoji": "🏸",
+        "name": "Badminton",
+        "titleKR": "배드민턴"
+      },
+      {
+        "emoji": "🥊",
+        "name": "Boxing",
+        "titleKR": "복싱"
+      },
+      {
+        "emoji": "🥋",
+        "name": "Martial Arts",
+        "titleKR": "무예"
+      },
+      {
+        "emoji": "🏋️‍♀️",
+        "name": "Weightlifting",
+        "titleKR": "역도"
+      }
+    ]
+  },
+  {
+    "activitycategoryID": "a6844ae6-3811-49a6-9c1d-879923dd9ffb",
+    "items": [
+      {
+        "emoji": "🧘‍♀️",
+        "name": "Yoga",
+        "titleKR": "요가"
+      },
+      {
+        "emoji": "🌺",
+        "name": "Aromatherapy",
+        "titleKR": "아로마"
+      },
+      {
+        "emoji": "🎶",
+        "name": "Music Therapy",
+        "titleKR": "음악 치료"
+      },
+      {
+        "emoji": "🌱",
+        "name": "Gardening",
+        "titleKR": "가드닝"
+      },
+      {
+        "emoji": "🎨",
+        "name": "Art Therapy",
+        "titleKR": "미술 치료"
+      },
+      {
+        "emoji": "🌿",
+        "name": "Herbalism",
+        "titleKR": "약초"
+      },
+      {
+        "emoji": "🛁",
+        "name": "Bath & Soak",
+        "titleKR": "목욕"
+      },
+      {
+        "emoji": "🧖‍♀️",
+        "name": "Spa",
+        "titleKR": "스파"
+      },
+      {
+        "emoji": "🌻",
+        "name": "Sunbathing",
+        "titleKR": "일광욕"
+      },
+      {
+        "emoji": "🌅",
+        "name": "Meditation",
+        "titleKR": "명상"
+      }
+    ]
+  },
+  {
+    "activitycategoryID": "088d53ee-da21-4490-9d14-910e7d44091c",
+    "items": [
+      {
+        "emoji": "🚗",
+        "name": "Road Trip",
+        "titleKR": "로드 트립"
+      },
+      {
+        "emoji": "🚆",
+        "name": "Train Journey",
+        "titleKR": "기차 여행"
+      },
+      {
+        "emoji": "🚣‍️",
+        "name": "Canoe Trip",
+        "titleKR": "카누 여행"
+      },
+      {
+        "emoji": "🛴",
+        "name": "Scooter Adventure",
+        "titleKR": "스쿠터 타기"
+      },
+      {
+        "emoji": "✈️",
+        "name": "Air Travel",
+        "titleKR": "비행기 여행"
+      },
+      {
+        "emoji": "🚲",
+        "name": "Bike Tour",
+        "titleKR": "자전거 여행"
+      },
+      {
+        "emoji": "🛵",
+        "name": "Scooter Tour",
+        "titleKR": "스쿠터 여행"
+      },
+      {
+        "emoji": "🚶️",
+        "name": "Walking Tour",
+        "titleKR": "도보 여행"
+      },
+      {
+        "emoji": "🛬",
+        "name": "Airport Layover",
+        "titleKR": "공항 경유 여행"
+      },
+      {
+        "emoji": "🚍",
+        "name": "Bus Tour",
+        "titleKR": "버스 여행"
+      }
+    ]
+  },
+  {
+    "activitycategoryID": "1096c28b-67da-48e4-ac45-6d518bdd4519",
+    "items": [
+      {
+        "emoji": "🎮",
+        "name": "Video Games",
+        "titleKR": "비디오 게임"
+      },
+      {
+        "emoji": "🃏",
+        "name": "Card Games",
+        "titleKR": "카드 게임"
+      },
+      {
+        "emoji": "🎲",
+        "name": "Board Games",
+        "titleKR": "보드 게임"
+      },
+      {
+        "emoji": "🕹",
+        "name": "Arcade Games",
+        "titleKR": "아케이드 게임"
+      },
+      {
+        "emoji": "🎳",
+        "name": "Bowling",
+        "titleKR": "볼링"
+      },
+      {
+        "emoji": "🎰",
+        "name": "Slot Machines",
+        "titleKR": "슬롯 머신"
+      },
+      {
+        "emoji": "🧩",
+        "name": "Puzzles",
+        "titleKR": "퍼즐"
+      },
+      {
+        "emoji": "🀄️",
+        "name": "Mahjong",
+        "titleKR": "마작"
+      },
+      {
+        "emoji": "🧿",
+        "name": "Fortune Telling",
+        "titleKR": "운세"
+      },
+      {
+        "emoji": "🏎",
+        "name": "Go-Karting",
+        "titleKR": "고카트"
+      }
+    ]
+  }
+]
+

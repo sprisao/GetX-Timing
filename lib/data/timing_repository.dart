@@ -155,4 +155,35 @@ class TimingRepository {
     }
     return <ActivityItem?>[];
   }
+
+  Future<void> createActivityItem(
+      {required String name,
+      required String emoji,
+      required String titleKR,
+      required String category}) async {
+    final String categoryID = category;
+
+    try {
+      final categoryResponse = await Amplify.API
+          .query(
+              request: ModelQueries.get(ActivityCategory.classType, categoryID))
+          .response;
+      final model = ActivityItem(
+          name: name,
+          titleKR: titleKR,
+          emoji: emoji,
+          activityCategory: categoryResponse.data as ActivityCategory);
+      final request = ModelMutations.create(model);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      final createdActivityItem = response.data;
+      if (createdActivityItem == null) {
+        safePrint('errors: ${response.errors}');
+        return;
+      }
+      safePrint('Mutation result: ${createdActivityItem.id}');
+    } on ApiException catch (e) {
+      safePrint('Mutation failed: $e');
+    }
+  }
 }

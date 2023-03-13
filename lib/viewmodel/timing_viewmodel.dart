@@ -47,4 +47,14 @@ class TimingViewModel with ChangeNotifier {
     await _repository.createSchedule();
     notifyListeners();
   }
+
+  void createActivityItem(
+      {required String name,
+      required String emoji,
+      required String titleKR,
+      required String category}) {
+    _repository.createActivityItem(
+        name: name, emoji: emoji, titleKR: titleKR, category: category);
+    notifyListeners();
+  }
 }
