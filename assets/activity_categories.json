@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Going Out"
+  },
+  {
+    "id": 2,
+    "name": "Sports"
+  },
+  {
+    "id": 3,
+    "name": "Outdoor Activities"
+  },
+  {
+    "id": 4,
+    "name": "Food/Drink"
+  },
+  {
+    "id": 5,
+    "name": "Reading"
+  },
+  {
+    "id": 6,
+    "name": "Creative/Artistic"
+  },
+  {
+    "id": 7,
+    "name": "Entertainment"
+  },
+  {
+    "id": 8,
+    "name": "Knowledge/Education"
+  },
+  {
+    "id": 9,
+    "name": "Social"
+  },
+  {
+    "id": 10,
+    "name": "Competitive/Gaming"
+  },
+  {
+    "id": 11,
+    "name": "Travel/Transportation"
+  },
+  {
+    "id": 12,
+    "name": "Adventure"
+  },
+  {
+    "id": 13,
+    "name": "Culinary"
+  },
+  {
+    "id": 14,
+    "name": "Relaxation"
+  },
+  {
+    "id": 15,
+    "name": "Culture/Heritage"
+  },
+  {
+    "id": 16,
+    "name": "Fitness/Wellness"
+  },
+  {
+    "id": 17,
+    "name": "Nature/Outdoors"
+  },
+  {
+    "id": 18,
+    "name": "Volunteer/Community Service"
+  },
+  {
+    "id": 19,
+    "name": "Shopping/Retail"
+  },
+  {
+    "id": 20,
+    "name": "Nightlife"
+  },
+  {
+    "id": 21,
+    "name": "Technology/Gaming"
+  },
+  {
+    "id": 22,
+    "name": "Music/Performance"
+  },
+  {
+    "id": 23,
+    "name": "Health/Beauty"
+  },
+  {
+    "id": 24,
+    "name": "Personal Development/Learning"
+  }
+]

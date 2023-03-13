@@ -1,0 +1,99 @@
+[
+  {
+    "id": "",
+    "title": "경기도",
+    "name": "gyeonggi",
+    "Locations": ""
+  },
+  {
+
+    "id": "",
+    "title": "강원도",
+    "name": "gangwon",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "충청남도",
+    "name": "chungcheongnam",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "전라북도",
+    "name": "jeollabuk",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "경상북도",
+    "name": "gyeongsangbuk",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "전라남도",
+    "name": "jeollanam",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "충청북도",
+    "name": "chungcheongbuk",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "경상남도",
+    "name": "gyeongsangnam",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "인천",
+    "name": "incheon",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "대구",
+    "name": "daegu",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "광주",
+    "name": "gwangju",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "대전",
+    "name": "daejeon",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "울산",
+    "name": "ulsan",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "부산",
+    "name": "busan",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "서울",
+    "name": "seoul",
+    "Locations": ""
+  },
+  {
+    "id": "",
+    "title": "제주",
+    "name": "jeju",
+    "Locations": ""
+  }
+]

@@ -1,0 +1,903 @@
+//[
+//  {
+//    "category": "Going Out",
+//    "activities": [
+//      {
+//        "emoji": "🎭",
+//        "name": "Theater"
+//      },
+//      {
+//        "emoji": "🎥",
+//        "name": "Movie"
+//      },
+//      {
+//        "emoji": "🎟️",
+//        "name": "Concert"
+//      },
+//      {
+//        "emoji": "🎡",
+//        "name": "Amusement Park"
+//      },
+//      {
+//        "emoji": "🎢",[
+//        {
+//          "category": "Going Out",
+//          "activities": [
+//            {
+//              "emoji": "🎭",
+//              "name": "Theater"
+//            },
+//            {
+//              "emoji": "🎥",
+//              "name": "Movie"
+//            },
+//            {
+//              "emoji": "🎟️",
+//              "name": "Concert"
+//            },
+//            {
+//              "emoji": "🎡",
+//              "name": "Amusement Park"
+//            },
+//            {
+//              "emoji": "🎢",
+//              "name": "Roller Coaster"
+//            },
+//            {
+//              "emoji": "🎲",
+//              "name": "Casino"
+//            },
+//            {
+//              "emoji": "🎨",
+//              "name": "Art Gallery"
+//            },
+//            {
+//              "emoji": "🎹",
+//              "name": "Live Music"
+//            },
+//            {
+//              "emoji": "🎤",
+//              "name": "Karaoke"
+//            },
+//            {
+//              "emoji": "🎳",
+//              "name": "Bowling"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Sports",
+//          "activities": [
+//            {
+//              "emoji": "⚽️",
+//              "name": "Soccer"
+//            },
+//            {
+//              "emoji": "🏀",
+//              "name": "Basketball"
+//            },
+//            {
+//              "emoji": "🏈",
+//              "name": "Football"
+//            },
+//            {
+//              "emoji": "🏐",
+//              "name": "Volleyball"
+//            },
+//            {
+//              "emoji": "🎾",
+//              "name": "Tennis"
+//            },
+//            {
+//              "emoji": "🏓",
+//              "name": "Table Tennis"
+//            },
+//            {
+//              "emoji": "🥊",
+//              "name": "Boxing"
+//            },
+//            {
+//              "emoji": "🚵‍♀️",
+//              "name": "Cycling"
+//            },
+//            {
+//              "emoji": "🏊‍♀️",
+//              "name": "Swimming"
+//            },
+//            {
+//              "emoji": "🏃‍♀️",
+//              "name": "Running"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Outdoor Activities",
+//          "activities": [
+//            {
+//              "emoji": "🚶‍♀️",
+//              "name": "Walking"
+//            },
+//            {
+//              "emoji": "🚴‍♀️",
+//              "name": "Cycling"
+//            },
+//            {
+//              "emoji": "⛹️‍♀️",
+//              "name": "Basketball"
+//            },
+//            {
+//              "emoji": "🏊‍♀️",
+//              "name": "Swimming"
+//            },
+//            {
+//              "emoji": "🏋️‍♀️",
+//              "name": "Weightlifting"
+//            },
+//            {
+//              "emoji": "🏃‍♀️",
+//              "name": "Running"
+//            },
+//            {
+//              "emoji": "🏇",
+//              "name": "Horseback Riding"
+//            },
+//            {
+//              "emoji": "🛶",
+//              "name": "Kayaking"
+//            },
+//            {
+//              "emoji": "🚣‍♀️",
+//              "name": "Rowing"
+//            },
+//            {
+//              "emoji": "🎣",
+//              "name": "Fishing"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Food/Drink",
+//          "activities": [
+//            {
+//              "emoji": "🍔",
+//              "name": "Fast food"
+//            },
+//            {
+//              "emoji": "🍕",
+//              "name": "Pizza night"
+//            },
+//            {
+//              "emoji": "🍗",
+//              "name": "BBQ"
+//            },
+//            {
+//              "emoji": "🍻",
+//              "name": "Brewery tour"
+//            },
+//            {
+//              "emoji": "🍹",
+//              "name": "Cocktail bar"
+//            },
+//            {
+//              "emoji": "🍲",
+//              "name": "Cooking class"
+//            },
+//            {
+//              "emoji": "🍮",
+//              "name": "Desserts and sweets"
+//            },
+//            {
+//              "emoji": "🍰",
+//              "name": "Bakery"
+//            },
+//            {
+//              "emoji": "🍴",
+//              "name": "Fine dining"
+//            },
+//            {
+//              "emoji": "🥂",
+//              "name": "Wine tasting"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Entertainment",
+//          "activities": [
+//            {
+//              "emoji": "🎭",
+//              "name": "Theater"
+//            },
+//            {
+//              "emoji": "🎥",
+//              "name": "Movie"
+//            },
+//            {
+//              "emoji": "🎤",
+//              "name": "Concert"
+//            },
+//            {
+//              "emoji": "🎲",
+//              "name": "Board game night"
+//            },
+//            {
+//              "emoji": "🎮",
+//              "name": "Video game tournament"
+//            },
+//            {
+//              "emoji": "🎨",
+//              "name": "Art museum"
+//            },
+//            {
+//              "emoji": "🎬",
+//              "name": "Film festival"
+//            },
+//            {
+//              "emoji": "🎭",
+//              "name": "Improv comedy"
+//            },
+//            {
+//              "emoji": "🎯",
+//              "name": "Dart tournament"
+//            },
+//            {
+//              "emoji": "🎵",
+//              "name": "Open mic night"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Social",
+//          "activities": [
+//            {
+//              "emoji": "👥",
+//              "name": "Friend gathering"
+//            },
+//            {
+//              "emoji": "🎉",
+//              "name": "Party"
+//            },
+//            {
+//              "emoji": "🍻",
+//              "name": "Bar hopping"
+//            },
+//            {
+//              "emoji": "🎂",
+//              "name": "Birthday celebration"
+//            },
+//            {
+//              "emoji": "💒",
+//              "name": "Wedding"
+//            },
+//            {
+//              "emoji": "🎓",
+//              "name": "Graduation ceremony"
+//            },
+//            {
+//              "emoji": "🎁",
+//              "name": "Gift exchange"
+//            },
+//            {
+//              "emoji": "🎃",
+//              "name": "Halloween party"
+//            },
+//            {
+//              "emoji": "🎄",
+//              "name": "Christmas party"
+//            },
+//            {
+//              "emoji": "🎁",
+//              "name": "Gift giving"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Travel/Transportation",
+//          "activities": [
+//            {
+//              "emoji": "✈️",
+//              "name": "Air travel"
+//            },
+//            {
+//              "emoji": "🚂",
+//              "name": "Train travel"
+//            },
+//            {
+//              "emoji": "🚗",
+//              "name": "Road trip"
+//            },
+//            {
+//              "emoji": "🛳",
+//              "name": "Cruise"
+//            },
+//            {
+//              "emoji": "🛴",
+//              "name": "Scooter ride"
+//            },
+//            {
+//              "emoji": "🚲",
+//              "name": "Bike ride"
+//            },
+//            {
+//              "emoji": "🚁",
+//              "name": "Helicopter ride"
+//            },
+//            {
+//              "emoji": "🚠",
+//              "name": "Cable car ride"
+//            },
+//            {
+//              "emoji": "🚆",
+//              "name": "Train travel"
+//            },
+//            {
+//              "emoji": "🛵",
+//              "name": "Motorcycle ride"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Nightlife",
+//          "activities": [
+//            {
+//              "emoji": "🍸",
+//              "name": "Cocktail Hour"
+//            },
+//            {
+//              "emoji": "🎵",
+//              "name": "Live Music"
+//            },
+//            {
+//              "emoji": "💃",
+//              "name": "Dancing"
+//            },
+//            {
+//              "emoji": "🎭",
+//              "name": "Comedy Show"
+//            },
+//            {
+//              "emoji": "🍻",
+//              "name": "Brewery Tour"
+//            },
+//            {
+//              "emoji": "🎭",
+//              "name": "Theater Performance"
+//            },
+//            {
+//              "emoji": "🎥",
+//              "name": "Movie Night"
+//            },
+//            {
+//              "emoji": "🎲",
+//              "name": "Board Game Night"
+//            },
+//            {
+//              "emoji": "🎤",
+//              "name": "Karaoke"
+//            },
+//            {
+//              "emoji": "🍻",
+//              "name": "Bar Hopping"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Music/Performance",
+//          "activities": [
+//            {
+//              "emoji": "🎤",
+//              "name": "Concert"
+//            },
+//            {
+//              "emoji": "🎧",
+//              "name": "Listening Party"
+//            },
+//            {
+//              "emoji": "🎸",
+//              "name": "Jam Session"
+//            },
+//            {
+//              "emoji": "🎹",
+//              "name": "Piano Bar"
+//            },
+//            {
+//              "emoji": "🎵",
+//              "name": "Opera"
+//            },
+//            {
+//              "emoji": "🎧",
+//              "name": "Music Festival"
+//            },
+//            {
+//              "emoji": "🎤",
+//              "name": "Open Mic Night"
+//            },
+//            {
+//              "emoji": "🎵",
+//              "name": "Choral Concert"
+//            },
+//            {
+//              "emoji": "🎸",
+//              "name": "Guitar Lesson"
+//            },
+//            {
+//              "emoji": "🎹",
+//              "name": "Piano Recital"
+//            }
+//          ]
+//        },
+//        {
+//          "category": "Personal Development/Learning",
+//          "activities": [
+//            {
+//              "emoji": "📚",
+//              "name": "Reading Books"
+//            },
+//            {
+//              "emoji": "💻",
+//              "name": "Online Courses"
+//            },
+//            {
+//              "emoji": "🎤",
+//              "name": "Public Speaking"
+//            },
+//            {
+//              "emoji": "📝",
+//              "name": "Journaling"
+//            },
+//            {
+//              "emoji": "🎨",
+//              "name": "Drawing/Painting"
+//            },
+//            {
+//              "emoji": "🎹",
+//              "name": "Playing Music Instrument"
+//            },
+//            {
+//              "emoji": "🧠",
+//              "name": "Meditation/Mindfulness"
+//            },
+//            {
+//              "emoji": "🏋️‍♂️",
+//              "name": "Physical Exercise"
+//            },
+//            {
+//              "emoji": "🎓",
+//              "name": "Continuing Education"
+//            },
+//            {
+//              "emoji": "💡",
+//              "name": "Brain Games/Puzzles"
+//            }
+//          ]
+//        }
+//      ]
+//        "name": "Roller Coaster"
+//      },
+//      {
+//        "emoji": "🎲",
+//        "name": "Casino"
+//      },
+//      {
+//        "emoji": "🎨",
+//        "name": "Art Gallery"
+//      },
+//      {
+//        "emoji": "🎹",
+//        "name": "Live Music"
+//      },
+//      {
+//        "emoji": "🎤",
+//        "name": "Karaoke"
+//      },
+//      {
+//        "emoji": "🎳",
+//        "name": "Bowling"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Sports",
+//    "activities": [
+//      {
+//        "emoji": "⚽️",
+//        "name": "Soccer"
+//      },
+//      {
+//        "emoji": "🏀",
+//        "name": "Basketball"
+//      },
+//      {
+//        "emoji": "🏈",
+//        "name": "Football"
+//      },
+//      {
+//        "emoji": "🏐",
+//        "name": "Volleyball"
+//      },
+//      {
+//        "emoji": "🎾",
+//        "name": "Tennis"
+//      },
+//      {
+//        "emoji": "🏓",
+//        "name": "Table Tennis"
+//      },
+//      {
+//        "emoji": "🥊",
+//        "name": "Boxing"
+//      },
+//      {
+//        "emoji": "🚵‍♀️",
+//        "name": "Cycling"
+//      },
+//      {
+//        "emoji": "🏊‍♀️",
+//        "name": "Swimming"
+//      },
+//      {
+//        "emoji": "🏃‍♀️",
+//        "name": "Running"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Outdoor Activities",
+//    "activities": [
+//      {
+//        "emoji": "🚶‍♀️",
+//        "name": "Walking"
+//      },
+//      {
+//        "emoji": "🚴‍♀️",
+//        "name": "Cycling"
+//      },
+//      {
+//        "emoji": "⛹️‍♀️",
+//        "name": "Basketball"
+//      },
+//      {
+//        "emoji": "🏊‍♀️",
+//        "name": "Swimming"
+//      },
+//      {
+//        "emoji": "🏋️‍♀️",
+//        "name": "Weightlifting"
+//      },
+//      {
+//        "emoji": "🏃‍♀️",
+//        "name": "Running"
+//      },
+//      {
+//        "emoji": "🏇",
+//        "name": "Horseback Riding"
+//      },
+//      {
+//        "emoji": "🛶",
+//        "name": "Kayaking"
+//      },
+//      {
+//        "emoji": "🚣‍♀️",
+//        "name": "Rowing"
+//      },
+//      {
+//        "emoji": "🎣",
+//        "name": "Fishing"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Food/Drink",
+//    "activities": [
+//      {
+//        "emoji": "🍔",
+//        "name": "Fast food"
+//      },
+//      {
+//        "emoji": "🍕",
+//        "name": "Pizza night"
+//      },
+//      {
+//        "emoji": "🍗",
+//        "name": "BBQ"
+//      },
+//      {
+//        "emoji": "🍻",
+//        "name": "Brewery tour"
+//      },
+//      {
+//        "emoji": "🍹",
+//        "name": "Cocktail bar"
+//      },
+//      {
+//        "emoji": "🍲",
+//        "name": "Cooking class"
+//      },
+//      {
+//        "emoji": "🍮",
+//        "name": "Desserts and sweets"
+//      },
+//      {
+//        "emoji": "🍰",
+//        "name": "Bakery"
+//      },
+//      {
+//        "emoji": "🍴",
+//        "name": "Fine dining"
+//      },
+//      {
+//        "emoji": "🥂",
+//        "name": "Wine tasting"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Entertainment",
+//    "activities": [
+//      {
+//        "emoji": "🎭",
+//        "name": "Theater"
+//      },
+//      {
+//        "emoji": "🎥",
+//        "name": "Movie"
+//      },
+//      {
+//        "emoji": "🎤",
+//        "name": "Concert"
+//      },
+//      {
+//        "emoji": "🎲",
+//        "name": "Board game night"
+//      },
+//      {
+//        "emoji": "🎮",
+//        "name": "Video game tournament"
+//      },
+//      {
+//        "emoji": "🎨",
+//        "name": "Art museum"
+//      },
+//      {
+//        "emoji": "🎬",
+//        "name": "Film festival"
+//      },
+//      {
+//        "emoji": "🎭",
+//        "name": "Improv comedy"
+//      },
+//      {
+//        "emoji": "🎯",
+//        "name": "Dart tournament"
+//      },
+//      {
+//        "emoji": "🎵",
+//        "name": "Open mic night"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Social",
+//    "activities": [
+//      {
+//        "emoji": "👥",
+//        "name": "Friend gathering"
+//      },
+//      {
+//        "emoji": "🎉",
+//        "name": "Party"
+//      },
+//      {
+//        "emoji": "🍻",
+//        "name": "Bar hopping"
+//      },
+//      {
+//        "emoji": "🎂",
+//        "name": "Birthday celebration"
+//      },
+//      {
+//        "emoji": "💒",
+//        "name": "Wedding"
+//      },
+//      {
+//        "emoji": "🎓",
+//        "name": "Graduation ceremony"
+//      },
+//      {
+//        "emoji": "🎁",
+//        "name": "Gift exchange"
+//      },
+//      {
+//        "emoji": "🎃",
+//        "name": "Halloween party"
+//      },
+//      {
+//        "emoji": "🎄",
+//        "name": "Christmas party"
+//      },
+//      {
+//        "emoji": "🎁",
+//        "name": "Gift giving"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Travel/Transportation",
+//    "activities": [
+//      {
+//        "emoji": "✈️",
+//        "name": "Air travel"
+//      },
+//      {
+//        "emoji": "🚂",
+//        "name": "Train travel"
+//      },
+//      {
+//        "emoji": "🚗",
+//        "name": "Road trip"
+//      },
+//      {
+//        "emoji": "🛳",
+//        "name": "Cruise"
+//      },
+//      {
+//        "emoji": "🛴",
+//        "name": "Scooter ride"
+//      },
+//      {
+//        "emoji": "🚲",
+//        "name": "Bike ride"
+//      },
+//      {
+//        "emoji": "🚁",
+//        "name": "Helicopter ride"
+//      },
+//      {
+//        "emoji": "🚠",
+//        "name": "Cable car ride"
+//      },
+//      {
+//        "emoji": "🚆",
+//        "name": "Train travel"
+//      },
+//      {
+//        "emoji": "🛵",
+//        "name": "Motorcycle ride"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Nightlife",
+//    "activities": [
+//      {
+//        "emoji": "🍸",
+//        "name": "Cocktail Hour"
+//      },
+//      {
+//        "emoji": "🎵",
+//        "name": "Live Music"
+//      },
+//      {
+//        "emoji": "💃",
+//        "name": "Dancing"
+//      },
+//      {
+//        "emoji": "🎭",
+//        "name": "Comedy Show"
+//      },
+//      {
+//        "emoji": "🍻",
+//        "name": "Brewery Tour"
+//      },
+//      {
+//        "emoji": "🎭",
+//        "name": "Theater Performance"
+//      },
+//      {
+//        "emoji": "🎥",
+//        "name": "Movie Night"
+//      },
+//      {
+//        "emoji": "🎲",
+//        "name": "Board Game Night"
+//      },
+//      {
+//        "emoji": "🎤",
+//        "name": "Karaoke"
+//      },
+//      {
+//        "emoji": "🍻",
+//        "name": "Bar Hopping"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Music/Performance",
+//    "activities": [
+//      {
+//        "emoji": "🎤",
+//        "name": "Concert"
+//      },
+//      {
+//        "emoji": "🎧",
+//        "name": "Listening Party"
+//      },
+//      {
+//        "emoji": "🎸",
+//        "name": "Jam Session"
+//      },
+//      {
+//        "emoji": "🎹",
+//        "name": "Piano Bar"
+//      },
+//      {
+//        "emoji": "🎵",
+//        "name": "Opera"
+//      },
+//      {
+//        "emoji": "🎧",
+//        "name": "Music Festival"
+//      },
+//      {
+//        "emoji": "🎤",
+//        "name": "Open Mic Night"
+//      },
+//      {
+//        "emoji": "🎵",
+//        "name": "Choral Concert"
+//      },
+//      {
+//        "emoji": "🎸",
+//        "name": "Guitar Lesson"
+//      },
+//      {
+//        "emoji": "🎹",
+//        "name": "Piano Recital"
+//      }
+//    ]
+//  },
+//  {
+//    "category": "Personal Development/Learning",
+//    "activities": [
+//      {
+//        "emoji": "📚",
+//        "name": "Reading Books"
+//      },
+//      {
+//        "emoji": "💻",
+//        "name": "Online Courses"
+//      },
+//      {
+//        "emoji": "🎤",
+//        "name": "Public Speaking"
+//      },
+//      {
+//        "emoji": "📝",
+//        "name": "Journaling"
+//      },
+//      {
+//        "emoji": "🎨",
+//        "name": "Drawing/Painting"
+//      },
+//      {
+//        "emoji": "🎹",
+//        "name": "Playing Music Instrument"
+//      },
+//      {
+//        "emoji": "🧠",
+//        "name": "Meditation/Mindfulness"
+//      },
+//      {
+//        "emoji": "🏋️‍♂️",
+//        "name": "Physical Exercise"
+//      },
+//      {
+//        "emoji": "🎓",
+//        "name": "Continuing Education"
+//      },
+//      {
+//        "emoji": "💡",
+//        "name": "Brain Games/Puzzles"
+//      }
+//    ]
+//  }
+//]
