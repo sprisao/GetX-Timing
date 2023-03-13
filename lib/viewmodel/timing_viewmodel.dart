@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../data/timing_repository.dart';
+import '../models/ModelProvider.dart';
 
 class TimingViewModel with ChangeNotifier {
   final TimingRepository _repository;
@@ -14,17 +15,36 @@ class TimingViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-
   /*User 데이터 생성*/
   Future<void> initUser() async {
     await _repository.initUser();
     notifyListeners();
   }
 
+  /* 지역 데이터 가져오기 */
+  Future<List<Location?>> queryLocationList() async {
+    final locationList = await _repository.getLocationList();
+    notifyListeners();
+    return locationList;
+  }
 
-  /*Query ActivityCategory List*/
-  Future<void> queryActivityCategoryList() async {
-    await _repository.getActivityCategoryList();
+  /* 활동 카테고리 가져오기 */
+  Future<List<ActivityCategory?>> queryActivityCategoryList() async {
+    final activityCatList = await _repository.getActivityCatList();
+    notifyListeners();
+    return activityCatList;
+  }
+
+  /* 활동 아이템 가져오기 */
+  Future<List<ActivityItem?>> queryActivityItemList() async {
+    final activityItemList = await _repository.getActivityItemList();
+    notifyListeners();
+    return activityItemList;
+  }
+
+  /* 스케쥴 생성 */
+  Future<void> createSchedule() async {
+    await _repository.createSchedule();
     notifyListeners();
   }
 }
