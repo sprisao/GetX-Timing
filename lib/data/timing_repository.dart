@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -38,15 +40,19 @@ class TimingRepository {
         if (element.userAttributeKey.toString() == "email") {
           final userEmail = element.value;
           final userDataRequest =
-              ModelQueries.list(User.classType, where: User.ID.eq(userId));
+          ModelQueries.list(User.classType, where: User.ID.eq(userId));
           final userDataResponse =
-              await Amplify.API.query(request: userDataRequest).response;
+          await Amplify.API
+              .query(request: userDataRequest)
+              .response;
 
           if (userDataResponse.data?.items.isEmpty ?? true) {
             final userToCreate = User(id: userId, email: userEmail);
             final userCreateRequest = ModelMutations.create(userToCreate);
             final response =
-                await Amplify.API.mutate(request: userCreateRequest).response;
+            await Amplify.API
+                .mutate(request: userCreateRequest)
+                .response;
 
             final createdUser = response.data;
             if (createdUser == null) {
@@ -89,7 +95,9 @@ class TimingRepository {
           locations: [],
           activityItems: []);
       final request = ModelMutations.create(model);
-      final response = await Amplify.API.mutate(request: request).response;
+      final response = await Amplify.API
+          .mutate(request: request)
+          .response;
 
       final createdSchedule = response.data;
       if (createdSchedule == null) {
@@ -106,7 +114,9 @@ class TimingRepository {
   Future<List<Location?>> getLocationList() async {
     try {
       final request = ModelQueries.list(Location.classType);
-      final response = await Amplify.API.query(request: request).response;
+      final response = await Amplify.API
+          .query(request: request)
+          .response;
 
       final items = response.data?.items;
       if (items == null) {
@@ -120,11 +130,45 @@ class TimingRepository {
     return <Location?>[];
   }
 
+  /*AcitivtyCategory with ActivityItem*/
+
+  Future getActivityCatWithItems() async {
+    try {
+      var operation = Amplify.API.query(request: GraphQLRequest(document: '''
+         query MyQuery {
+      listActivityCategories {
+        items {
+          id
+          titleKR
+          name
+          activityItems {
+            items {
+              emoji
+              id
+              titleKR
+            }
+          }
+        }
+      }
+    }
+      ''')
+      );
+      var response = await operation.response;
+      var data = json.decode(response.data);
+      return data;
+    }catch(e){
+      rethrow;
+    }
+  }
+
+
   /* Activity 데이터 가져오기 */
   Future<List<ActivityCategory?>> getActivityCatList() async {
     try {
       final request = ModelQueries.list(ActivityCategory.classType);
-      final response = await Amplify.API.query(request: request).response;
+      final response = await Amplify.API
+          .query(request: request)
+          .response;
 
       final items = response.data?.items;
       if (items == null) {
@@ -142,7 +186,9 @@ class TimingRepository {
   Future<List<ActivityItem?>> getActivityItemList() async {
     try {
       final request = ModelQueries.list(ActivityItem.classType);
-      final response = await Amplify.API.query(request: request).response;
+      final response = await Amplify.API
+          .query(request: request)
+          .response;
 
       final items = response.data?.items;
       if (items == null) {
@@ -156,17 +202,16 @@ class TimingRepository {
     return <ActivityItem?>[];
   }
 
-  Future<void> createActivityItem(
-      {required String name,
-      required String emoji,
-      required String titleKR,
-      required String category}) async {
+  Future<void> createActivityItem({required String name,
+    required String emoji,
+    required String titleKR,
+    required String category}) async {
     final String categoryID = category;
 
     try {
       final categoryResponse = await Amplify.API
           .query(
-              request: ModelQueries.get(ActivityCategory.classType, categoryID))
+          request: ModelQueries.get(ActivityCategory.classType, categoryID))
           .response;
       final model = ActivityItem(
           name: name,
@@ -174,7 +219,9 @@ class TimingRepository {
           emoji: emoji,
           activityCategory: categoryResponse.data as ActivityCategory);
       final request = ModelMutations.create(model);
-      final response = await Amplify.API.mutate(request: request).response;
+      final response = await Amplify.API
+          .mutate(request: request)
+          .response;
 
       final createdActivityItem = response.data;
       if (createdActivityItem == null) {
@@ -187,10 +234,9 @@ class TimingRepository {
     }
   }
 
-  Future<void> createLocationItem(
-      {required String name,
-      required String titleEN,
-      required String titleKR}) async {
+  Future<void> createLocationItem({required String name,
+    required String titleEN,
+    required String titleKR}) async {
     const String provinceId = "6f490f64-6d04-4a5f-8de9-d0eb09f477cb";
 
     try {
@@ -203,7 +249,9 @@ class TimingRepository {
           titleKR: titleKR,
           province: provinceResponse.data as Province);
       final request = ModelMutations.create(model);
-      final response = await Amplify.API.mutate(request: request).response;
+      final response = await Amplify.API
+          .mutate(request: request)
+          .response;
 
       final createdLocation = response.data;
       if (createdLocation == null) {

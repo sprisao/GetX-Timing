@@ -43,9 +43,9 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
               FilledButton(
                   onPressed: () {
                     var activityCategories =
-                        viewModel.queryActivityCategoryList();
+                        viewModel.queryActivityCatWithItem();
                     activityCategories.then((value) {
-                      safePrint(value);
+                      safePrint("here: $value");
                     });
                   },
                   child: Text('활동 카테고리  불러오기')),

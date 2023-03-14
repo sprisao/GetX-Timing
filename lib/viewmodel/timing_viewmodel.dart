@@ -27,6 +27,12 @@ class TimingViewModel with ChangeNotifier {
     notifyListeners();
     return locationList;
   }
+  /**/
+  Future queryActivityCatWithItem() async{
+    final activityCatWithItem = await _repository.getActivityCatWithItems();
+    notifyListeners();
+    return activityCatWithItem;
+  }
 
   /* 활동 카테고리 가져오기 */
   Future<List<ActivityCategory?>> queryActivityCategoryList() async {
