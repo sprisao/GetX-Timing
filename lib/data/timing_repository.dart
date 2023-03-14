@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:timing/data/api_service/graphql_queries.dart';
 import 'package:timing/models/ModelProvider.dart';
 
 class TimingRepository {
@@ -134,24 +135,7 @@ class TimingRepository {
 
   Future getActivityCatWithItems() async {
     try {
-      var operation = Amplify.API.query(request: GraphQLRequest(document: '''
-         query MyQuery {
-      listActivityCategories {
-        items {
-          id
-          titleKR
-          name
-          activityItems {
-            items {
-              emoji
-              id
-              titleKR
-            }
-          }
-        }
-      }
-    }
-      ''')
+      var operation = Amplify.API.query(request: GraphQLRequest(document: GraphQlQueries.getActivityCategoryWithItems)
       );
       var response = await operation.response;
       var data = json.decode(response.data);
