@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:timing/models/activity_model.dart';
 
 import '../data/timing_repository.dart';
 import '../models/ModelProvider.dart';
@@ -28,7 +29,7 @@ class TimingViewModel with ChangeNotifier {
     return locationList;
   }
   /**/
-  Future queryActivityCatWithItem() async{
+  Future<List<ActivityCategoryModel>> queryActivityCatWithItem() async {
     final activityCatWithItem = await _repository.getActivityCatWithItems();
     notifyListeners();
     return activityCatWithItem;

@@ -133,14 +133,39 @@ class TimingRepository {
 
   /*AcitivtyCategory with ActivityItem*/
 
-  Future getActivityCatWithItems() async {
+  Future<List<ActivityCategoryModel>> getActivityCatWithItems() async {
     try {
-      var operation = Amplify.API.query(request: GraphQLRequest(document: GraphQlQueries.getActivityCategoryWithItems)
+      var operation = Amplify.API.query(
+        request: GraphQLRequest(
+            document: GraphQlQueries.getActivityCategoryWithItems),
       );
       var response = await operation.response;
       var data = json.decode(response.data);
-      return data;
-    }catch(e){
+
+      List<ActivityCategoryModel> activityCatList = [];
+
+      await data['listActivityCategories']['items'].forEach((element) async {
+        ActivityCategoryModel activityCat =
+            ActivityCategoryModel.fromJson(element);
+
+        List<ActivityItemModel> activityItemList = [];
+
+        element['activityItems']['items'].forEach((item) {
+          ActivityItemModel activityItem = ActivityItemModel.fromJson(item);
+          activityItemList.add(activityItem);
+        });
+
+        activityCatList.add(
+          ActivityCategoryModel(
+            id: activityCat.id,
+            name: activityCat.name,
+            activityItems: activityItemList,
+          ),
+        );
+      });
+
+      return activityCatList;
+    } catch (e) {
       rethrow;
     }
   }
