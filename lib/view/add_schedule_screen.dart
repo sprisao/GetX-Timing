@@ -1,11 +1,10 @@
-
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timing/view/components/timing_appbar.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
 import '../models/ModelProvider.dart';
+import '../models/activity_model.dart';
 
 class AddScheduleScreen extends StatefulWidget {
   const AddScheduleScreen({Key? key}) : super(key: key);
@@ -15,8 +14,33 @@ class AddScheduleScreen extends StatefulWidget {
 }
 
 class _AddScheduleScreenState extends State<AddScheduleScreen> {
+  List<ActivityCategoryModel> activityCategories = [];
+  List<Location?> locations = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<TimingViewModel>(context, listen: false)
+        .queryLocationList()
+        .then((value) {
+      setState(() {
+        locations = value;
+      });
+    });
+    Provider.of<TimingViewModel>(context, listen: false)
+        .queryActivityCatWithItem()
+        .then((value) {
+      setState(() {
+        activityCategories = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Location> selectedLocations = [];
+
     return Consumer<TimingViewModel>(builder: (context, viewModel, child) {
       return Scaffold(
         appBar: AppbarWithOutLogo(
@@ -31,24 +55,24 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FilledButton(
-                  onPressed: () {
-                    Future<List<Location?>> locationList =
-                        viewModel.queryLocationList();
-                    locationList.then((value) {
-                      safePrint(value);
-                    });
-                  },
-                  child: Text('지역 데이터 가져오기')),
-              FilledButton(
-                  onPressed: () {
-                    var activityCategories =
-                        viewModel.queryActivityCatWithItem();
-                    activityCategories.then((value) {
-                      safePrint("here: $value");
-                    });
-                  },
-                  child: Text('활동 카테고리  불러오기')),
+              Wrap(
+                children: [
+                  for (var location in locations)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ChoiceChip(
+                        label: Text(location!.name),
+                        selected: selectedLocations == location,
+                        onSelected: (selected) {
+                          setState(() {
+                            selectedLocations.add(location);
+                          });
+                        },
+                      ),
+                    )
+                ],
+              ),
+
               FilledButton(
                   onPressed: () {
                     viewModel.createSchedule();
