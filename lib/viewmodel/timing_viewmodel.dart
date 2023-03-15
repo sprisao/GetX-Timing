@@ -23,12 +23,13 @@ class TimingViewModel with ChangeNotifier {
   }
 
   /* 지역 데이터 가져오기 */
-  Future<List<Location?>> queryLocationList() async {
+  Future<List<LocationModel>> queryLocationList() async {
     final locationList = await _repository.getLocationList();
     notifyListeners();
     return locationList;
   }
-  /**/
+
+
   Future<List<ActivityCategoryModel>> queryActivityCatWithItem() async {
     final activityCatWithItem = await _repository.getActivityCatWithItems();
     notifyListeners();
