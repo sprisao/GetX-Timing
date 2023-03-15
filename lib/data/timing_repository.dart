@@ -5,6 +5,7 @@ import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:timing/data/api_service/graphql_queries.dart';
 import 'package:timing/models/ModelProvider.dart';
+import 'package:timing/models/activity_model.dart';
 
 class TimingRepository {
   /*Auth CurrentAuthenticatedUser*/
@@ -41,19 +42,15 @@ class TimingRepository {
         if (element.userAttributeKey.toString() == "email") {
           final userEmail = element.value;
           final userDataRequest =
-          ModelQueries.list(User.classType, where: User.ID.eq(userId));
+              ModelQueries.list(User.classType, where: User.ID.eq(userId));
           final userDataResponse =
-          await Amplify.API
-              .query(request: userDataRequest)
-              .response;
+              await Amplify.API.query(request: userDataRequest).response;
 
           if (userDataResponse.data?.items.isEmpty ?? true) {
             final userToCreate = User(id: userId, email: userEmail);
             final userCreateRequest = ModelMutations.create(userToCreate);
             final response =
-            await Amplify.API
-                .mutate(request: userCreateRequest)
-                .response;
+                await Amplify.API.mutate(request: userCreateRequest).response;
 
             final createdUser = response.data;
             if (createdUser == null) {
@@ -71,14 +68,9 @@ class TimingRepository {
   }
 
   /* 스케쥴 생성 */
-  Future<void> createSchedule() async {
-    /*필요한것 :
-    *  1. User 객체
-    *  2. Location 객체
-    *  3. Activity 객체
-    * 각각의 객체들은 Schedule을 생성할때 한번에 가져와야 할까?*/
-
-    /*Location, */
+  Future<void> createSchedule(List<LocationModel> selectedLocations, List<ActivityItemModel> selectedActivities) async {
+    /*selectedLocations 와 selectedActivityItem을 포함한 Schedule 생성*/
+    safePrint(selectedLocations.length + selectedActivities.length);
 
     try {
       final currentUser = await Amplify.Auth.getCurrentUser();
@@ -96,9 +88,7 @@ class TimingRepository {
           locations: [],
           activityItems: []);
       final request = ModelMutations.create(model);
-      final response = await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
 
       final createdSchedule = response.data;
       if (createdSchedule == null) {
@@ -197,9 +187,7 @@ class TimingRepository {
   Future<List<ActivityItem?>> getActivityItemList() async {
     try {
       final request = ModelQueries.list(ActivityItem.classType);
-      final response = await Amplify.API
-          .query(request: request)
-          .response;
+      final response = await Amplify.API.query(request: request).response;
 
       final items = response.data?.items;
       if (items == null) {

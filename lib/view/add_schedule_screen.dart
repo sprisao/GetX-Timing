@@ -1,6 +1,9 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:timing/view/components/timing_appbar.dart';
+import 'package:timing/view/components/timing_filterchip.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
 import '../models/ModelProvider.dart';
@@ -15,12 +18,15 @@ class AddScheduleScreen extends StatefulWidget {
 
 class _AddScheduleScreenState extends State<AddScheduleScreen> {
   List<ActivityCategoryModel> activityCategories = [];
-  List<Location?> locations = [];
+  List<LocationModel?> locations = [];
+
+  final List<LocationModel> selectedLocations = [];
+  final List<ActivityItemModel> selectedActivities = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
     Provider.of<TimingViewModel>(context, listen: false)
         .queryLocationList()
         .then((value) {
@@ -39,8 +45,6 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Location> selectedLocations = [];
-
     return Consumer<TimingViewModel>(builder: (context, viewModel, child) {
       return Scaffold(
         appBar: AppbarWithOutLogo(
@@ -51,31 +55,167 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
             },
           ),
         ),
-        body: Center(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Wrap(
-                children: [
-                  for (var location in locations)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ChoiceChip(
-                        label: Text(location!.name),
-                        selected: selectedLocations == location,
-                        onSelected: (selected) {
-                          setState(() {
-                            selectedLocations.add(location);
-                          });
-                        },
+                spacing: 6,
+                runSpacing: -9,
+                children: locations
+                    .map((e) => CustomFilterChip(
+                          label: (e!.titleKR),
+                          selected:
+                              selectedLocations.contains(e) ? true : false,
+                          onSelected: (selected) {
+                            HapticFeedback.lightImpact();
+                            safePrint(selectedLocations.length);
+                            safePrint(e.titleKR);
+                            if (selected) {
+                              if (selectedLocations.length < 5) {
+                                setState(() {
+                                  selectedLocations.add(e);
+                                });
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        // title: const Text('Alert'),
+                                        content: const SizedBox(
+                                          height: 75,
+                                          child: Center(
+                                            child:
+                                                Text('최대 5개의 지역을 선택 하실 수 있어요~'),
+                                          ),
+                                        ),
+                                        actions: [
+                                          Center(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                '확인',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
+                            } else {
+                              setState(() {
+                                selectedLocations.remove(e);
+                              });
+                            }
+                          },
+                        ))
+                    .toList(),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Column(
+                children: activityCategories.map((e) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              e.titleKR,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                ],
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: -9,
+                        children: e.activityItems
+                            .map((e) => CustomFilterChip(
+                                  label: e.titleKR,
+                                  selected: selectedActivities.contains(e)
+                                      ? true
+                                      : false,
+                                  onSelected: (selected) {
+                                    HapticFeedback.lightImpact();
+                                    if (selected) {
+                                      if (selectedActivities.length < 5) {
+                                        setState(() {
+                                          selectedActivities.add(e);
+                                        });
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0),
+                                                ),
+                                                // title: const Text('Alert'),
+                                                content: const SizedBox(
+                                                  height: 75,
+                                                  child: Center(
+                                                    child: Text(
+                                                        '최대 5개의 활동을 선택 하실 수 있어요~'),
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  Center(
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text(
+                                                        '확인',
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                      }
+                                    } else {
+                                      setState(() {
+                                        selectedActivities.remove(e);
+                                      });
+                                    }
+                                  },
+                                ))
+                            .toList(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  );
+                }).toList(),
               ),
 
               FilledButton(
                   onPressed: () {
-                    viewModel.createSchedule();
+                    viewModel.createSchedule(
+                      selectedLocations,
+                      selectedActivities,
+                    );
                   },
                   child: Text('스케쥴 생성'))
             ],
