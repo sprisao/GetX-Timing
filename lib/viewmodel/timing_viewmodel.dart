@@ -3,6 +3,7 @@ import 'package:timing/models/activity_model.dart';
 
 import '../data/timing_repository.dart';
 import '../models/ModelProvider.dart';
+import '../models/location_model.dart';
 
 class TimingViewModel with ChangeNotifier {
   final TimingRepository _repository;

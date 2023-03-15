@@ -6,8 +6,8 @@ import 'package:timing/view/components/timing_appbar.dart';
 import 'package:timing/view/components/timing_filterchip.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
-import '../models/ModelProvider.dart';
 import '../models/activity_model.dart';
+import '../models/location_model.dart';
 
 class AddScheduleScreen extends StatefulWidget {
   const AddScheduleScreen({Key? key}) : super(key: key);
