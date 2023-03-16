@@ -20,8 +20,8 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
   List<ActivityCategoryModel> activityCategories = [];
   List<LocationModel?> locations = [];
 
-  final List<LocationModel> selectedLocations = [];
-  final List<ActivityItemModel> selectedActivities = [];
+  final List<String> selectedLocations = [];
+  final List<String> selectedActivities = [];
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                     .map((e) => CustomFilterChip(
                           label: (e!.titleKR),
                           selected:
-                              selectedLocations.contains(e) ? true : false,
+                              selectedLocations.contains(e.id) ? true : false,
                           onSelected: (selected) {
                             HapticFeedback.lightImpact();
                             safePrint(selectedLocations.length);
@@ -75,7 +75,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                             if (selected) {
                               if (selectedLocations.length < 5) {
                                 setState(() {
-                                  selectedLocations.add(e);
+                                  selectedLocations.add(e.id);
                                 });
                               } else {
                                 showDialog(
@@ -114,7 +114,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                               }
                             } else {
                               setState(() {
-                                selectedLocations.remove(e);
+                                selectedLocations.remove(e.id);
                               });
                             }
                           },
@@ -146,7 +146,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                         children: e.activityItems
                             .map((e) => CustomFilterChip(
                                   label: e.titleKR,
-                                  selected: selectedActivities.contains(e)
+                                  selected: selectedActivities.contains(e.id)
                                       ? true
                                       : false,
                                   onSelected: (selected) {
@@ -154,7 +154,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                                     if (selected) {
                                       if (selectedActivities.length < 5) {
                                         setState(() {
-                                          selectedActivities.add(e);
+                                          selectedActivities.add(e.id);
                                         });
                                       } else {
                                         showDialog(
@@ -195,7 +195,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                                       }
                                     } else {
                                       setState(() {
-                                        selectedActivities.remove(e);
+                                        selectedActivities.remove(e.id);
                                       });
                                     }
                                   },

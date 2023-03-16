@@ -70,7 +70,7 @@ class TimingRepository {
   }
 
   /* 스케쥴 생성 */
-  Future<void> createSchedule(List<LocationModel> selectedLocations, List<ActivityItemModel> selectedActivities) async {
+  Future<void> createSchedule(List<String> selectedLocations, List<String> selectedActivities) async {
     /*selectedLocations 와 selectedActivityItem을 포함한 Schedule 생성*/
     safePrint(selectedLocations.length + selectedActivities.length);
 
@@ -87,53 +87,13 @@ class TimingRepository {
           endTime: TemporalDateTime.fromString("1970-01-01T12:30:23.999Z"),
           privacy: Privacy.ONLYPUBLIC,
           user: userResponse.data as User,
-          locations: [],
-          activityItems: []);
+          locationList: selectedLocations,
+          activityItemList: selectedActivities);
       final request = ModelMutations.create(model);
       final response = await Amplify.API.mutate(request: request).response;
 
-      /*Schedule 생성 후 생성된 Schedule에 Location 추가*/
-      for (var i = 0; i < selectedLocations.length; i++) {
-        final locationResponse = await Amplify.API
-            .query(request: ModelQueries.get(Location.classType, selectedLocations[i].id))
-            .response;
-        final location = locationResponse.data as Location;
-        final scheduleLocation = ScheduleLocation(
-          schedule: model,
-          location: location,
-        );
-        final scheduleLocationRequest = ModelMutations.create(scheduleLocation);
-        final scheduleLocationResponse = await Amplify.API.mutate(request: scheduleLocationRequest).response;
-        final createdScheduleLocation = scheduleLocationResponse.data;
-        if (createdScheduleLocation == null) {
-          safePrint('errors: ${scheduleLocationResponse.errors}');
-          return;
-        }
-        safePrint('Mutation result: ${createdScheduleLocation.id}');
-      }
-
-      /*Schedule 생성 후 생성된 Schedule에 ActivityItem 추가*/
-      for (var i = 0; i < selectedActivities.length; i++) {
-        final activityItemResponse = await Amplify.API
-            .query(request: ModelQueries.get(ActivityItem.classType, selectedActivities[i].id))
-            .response;
-        final activityItem = activityItemResponse.data as ActivityItem;
-        final scheduleActivityItem = ScheduleActivityItem(
-          schedule: model,
-          activityItem: activityItem,
-        );
-        final scheduleActivityItemRequest = ModelMutations.create(scheduleActivityItem);
-        final scheduleActivityItemResponse = await Amplify.API.mutate(request: scheduleActivityItemRequest).response;
-        final createdScheduleActivityItem = scheduleActivityItemResponse.data;
-        if (createdScheduleActivityItem == null) {
-          safePrint('errors: ${scheduleActivityItemResponse.errors}');
-          return;
-        }
-        safePrint('Mutation result: ${createdScheduleActivityItem.id}');
-      }
-
-
       final createdSchedule = response.data;
+
       if (createdSchedule == null) {
         safePrint('errors: ${response.errors}');
         return;

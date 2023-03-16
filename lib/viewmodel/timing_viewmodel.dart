@@ -52,7 +52,7 @@ class TimingViewModel with ChangeNotifier {
   }
 
   /* 스케쥴 생성 */
-  Future<void> createSchedule(List<LocationModel> selectedLocations, List<ActivityItemModel> selectedActivities) async {
+  Future<void> createSchedule(List<String> selectedLocations, List<String> selectedActivities) async {
     await _repository.createSchedule( selectedLocations, selectedActivities);
     notifyListeners();
   }
