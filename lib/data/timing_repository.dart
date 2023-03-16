@@ -8,6 +8,7 @@ import 'package:timing/models/ModelProvider.dart';
 import 'package:timing/models/activity_model.dart';
 
 import '../models/location_model.dart';
+import '../models/schedule_model.dart';
 
 class TimingRepository {
   /*Auth CurrentAuthenticatedUser*/
@@ -70,7 +71,8 @@ class TimingRepository {
   }
 
   /* 스케쥴 생성 */
-  Future<void> createSchedule(List<String> selectedLocations, List<String> selectedActivities) async {
+  Future<void> createSchedule(
+      List<String> selectedLocations, List<String> selectedActivities) async {
     /*selectedLocations 와 selectedActivityItem을 포함한 Schedule 생성*/
     safePrint(selectedLocations.length + selectedActivities.length);
 
@@ -107,7 +109,6 @@ class TimingRepository {
   /* 지역 데이터 가져오기 */
   Future<List<LocationModel>> getLocationList() async {
     try {
-
       var operation = Amplify.API.query(
         request: GraphQLRequest(document: GraphQlQueries.getLocationList),
       );
@@ -122,11 +123,10 @@ class TimingRepository {
       });
 
       return locationList;
-
     } on ApiException catch (e) {
       safePrint('Query failed: $e');
     }
-   return [];
+    return [];
   }
 
   /*AcitivtyCategory with ActivityItem*/
@@ -262,5 +262,31 @@ class TimingRepository {
     } on ApiException catch (e) {
       safePrint('Mutation failed: $e');
     }
+  }
+
+  Future<List<ScheduleModel>> getMyScheduleList() async {
+    try {
+      AuthUser authUser = await Amplify.Auth.getCurrentUser();
+      var operation = Amplify.API.query(
+        request: GraphQLRequest(
+            document: GraphQlQueries.getScheduleByUserID,
+            variables: {'userID': authUser.userId}),
+      );
+      var response = await operation.response;
+      safePrint('Query result: ${response.data}');
+      var data = json.decode(response.data);
+
+      List<ScheduleModel> scheduleList = [];
+
+      await data['schedulesByUserID']['items'].forEach((element) async {
+        ScheduleModel schedule = ScheduleModel.fromJson(element);
+        scheduleList.add(schedule);
+      });
+
+      return scheduleList;
+    } on ApiException catch (e) {
+      safePrint('Query failed: $e');
+    }
+    return [];
   }
 }

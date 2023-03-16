@@ -30,6 +30,19 @@ class GraphQlQueries {
     }
     ''';
 
-
-
+  static const String getScheduleByUserID = '''
+  query MyQuery(\$userID: ID!) {
+  schedulesByUserID(userID: \$userID) {
+    items{
+      id
+      date
+      startTime
+      endTime
+      privacy
+      locationList
+      activityItemList
+    }
   }
+}
+''';
+}

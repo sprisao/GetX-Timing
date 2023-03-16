@@ -4,6 +4,7 @@ import 'package:timing/models/activity_model.dart';
 import '../data/timing_repository.dart';
 import '../models/ModelProvider.dart';
 import '../models/location_model.dart';
+import '../models/schedule_model.dart';
 
 class TimingViewModel with ChangeNotifier {
   final TimingRepository _repository;
@@ -74,4 +75,11 @@ class TimingViewModel with ChangeNotifier {
     _repository.createLocationItem(
         name: name, titleEN: titleEN, titleKR: titleKR);
   }
+
+  Future<List<ScheduleModel>> getMyScheduleList() async {
+    final scheduleList = await _repository.getMyScheduleList();
+    notifyListeners();
+    return scheduleList;
+  }
+
 }
