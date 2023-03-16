@@ -1,16 +1,16 @@
 import 'Privacy.dart';
 
 class ScheduleModel {
-  final String id;
-  final DateTime date;
-  final DateTime startTime;
-  final DateTime endTime;
+  final String? id;
+  late final DateTime date;
+  late final DateTime startTime;
+  late final DateTime endTime;
   final Privacy privacy;
   final List<String> locationList;
   final List<String> activityItemList;
 
   ScheduleModel({
-    required this.id,
+    this.id,
     required this.date,
     required this.startTime,
     required this.endTime,
