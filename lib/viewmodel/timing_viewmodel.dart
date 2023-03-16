@@ -9,8 +9,16 @@ import '../models/schedule_model.dart';
 class TimingViewModel with ChangeNotifier {
   final TimingRepository _repository;
 
+  List<LocationModel> _locations = [];
+  List<ActivityCategoryModel> _activityCatWithItems = [];
+  List<ScheduleModel> _myScheduleList = [];
+
   TimingViewModel({TimingRepository? repository})
       : _repository = repository ?? TimingRepository();
+
+  List<LocationModel> get locations => _locations;
+  List<ActivityCategoryModel> get activityCatWithItems => _activityCatWithItems;
+  List<ScheduleModel> get myScheduleList => _myScheduleList;
 
   /*Auth CurrentAuthenticatedUser*/
   Future<void> currentUserId() async {
@@ -25,17 +33,14 @@ class TimingViewModel with ChangeNotifier {
   }
 
   /* 지역 데이터 가져오기 */
-  Future<List<LocationModel>> queryLocationList() async {
-    final locationList = await _repository.getLocationList();
+  Future<void> queryLocationList() async {
+     _locations = await _repository.getLocationList();
     notifyListeners();
-    return locationList;
   }
 
-
-  Future<List<ActivityCategoryModel>> queryActivityCatWithItem() async {
-    final activityCatWithItem = await _repository.getActivityCatWithItems();
+  Future<void> queryActivityCatWithItem() async {
+    _activityCatWithItems = await _repository.getActivityCatWithItems();
     notifyListeners();
-    return activityCatWithItem;
   }
 
   /* 활동 카테고리 가져오기 */
@@ -53,8 +58,9 @@ class TimingViewModel with ChangeNotifier {
   }
 
   /* 스케쥴 생성 */
-  Future<void> createSchedule(List<String> selectedLocations, List<String> selectedActivities) async {
-    await _repository.createSchedule( selectedLocations, selectedActivities);
+  Future<void> createSchedule(
+      List<String> selectedLocations, List<String> selectedActivities) async {
+    await _repository.createSchedule(selectedLocations, selectedActivities);
     notifyListeners();
   }
 
@@ -76,10 +82,8 @@ class TimingViewModel with ChangeNotifier {
         name: name, titleEN: titleEN, titleKR: titleKR);
   }
 
-  Future<List<ScheduleModel>> getMyScheduleList() async {
-    final scheduleList = await _repository.getMyScheduleList();
+  Future<void> getMyScheduleList() async {
+    _myScheduleList = await _repository.getMyScheduleList();
     notifyListeners();
-    return scheduleList;
   }
-
 }

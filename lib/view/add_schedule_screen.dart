@@ -6,9 +6,6 @@ import 'package:timing/view/components/timing_appbar.dart';
 import 'package:timing/view/components/timing_filterchip.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
-import '../models/activity_model.dart';
-import '../models/location_model.dart';
-
 class AddScheduleScreen extends StatefulWidget {
   const AddScheduleScreen({Key? key}) : super(key: key);
 
@@ -17,8 +14,6 @@ class AddScheduleScreen extends StatefulWidget {
 }
 
 class _AddScheduleScreenState extends State<AddScheduleScreen> {
-  List<ActivityCategoryModel> activityCategories = [];
-  List<LocationModel?> locations = [];
 
   final List<String> selectedLocations = [];
   final List<String> selectedActivities = [];
@@ -26,21 +21,9 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
   @override
   void initState() {
     super.initState();
-
+    Provider.of<TimingViewModel>(context, listen: false).queryLocationList();
     Provider.of<TimingViewModel>(context, listen: false)
-        .queryLocationList()
-        .then((value) {
-      setState(() {
-        locations = value;
-      });
-    });
-    Provider.of<TimingViewModel>(context, listen: false)
-        .queryActivityCatWithItem()
-        .then((value) {
-      setState(() {
-        activityCategories = value;
-      });
-    });
+        .queryActivityCatWithItem();
   }
 
   @override
@@ -63,9 +46,9 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
               Wrap(
                 spacing: 6,
                 runSpacing: -9,
-                children: locations
+                children: viewModel.locations
                     .map((e) => CustomFilterChip(
-                          label: (e!.titleKR),
+                          label: (e.titleKR),
                           selected:
                               selectedLocations.contains(e.id) ? true : false,
                           onSelected: (selected) {
@@ -125,7 +108,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                 height: 20,
               ),
               Column(
-                children: activityCategories.map((e) {
+                children: viewModel.activityCatWithItems.map((e) {
                   return Column(
                     children: [
                       Padding(
@@ -209,7 +192,6 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                   );
                 }).toList(),
               ),
-
               FilledButton(
                   onPressed: () {
                     viewModel.createSchedule(
