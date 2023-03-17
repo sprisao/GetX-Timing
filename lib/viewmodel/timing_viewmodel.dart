@@ -20,6 +20,17 @@ class TimingViewModel with ChangeNotifier {
   List<ActivityCategoryModel> get activityCatWithItems => _activityCatWithItems;
   List<ScheduleModel> get myScheduleList => _myScheduleList;
 
+  ScheduleModel createNewScheduleModel() {
+    return ScheduleModel(
+      date: DateTime.now(),
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      privacy: Privacy.ONLYPUBLIC,
+      locationList: [],
+      activityItemList: [],
+    );
+  }
+
   /*Auth CurrentAuthenticatedUser*/
   Future<void> currentUserId() async {
     await _repository.currentUser();
