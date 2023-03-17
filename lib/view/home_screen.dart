@@ -51,10 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView(
                   shrinkWrap: true,
                   children: model.myScheduleList
-                      .map((e) => ListTile(
-                            title: Text(e.startTime.toString()),
-                            subtitle: Text(e.endTime.toString()),
-                          ))
+                      .map((e) =>
+                      ListTile(
+                        title: Text(e.startTime.toString()),
+                        subtitle: Text(e.endTime.toString()),
+                      ))
                       .toList(),
                 ),
                 FilledButton(
@@ -72,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
 void _showMultiScreenBottomSheet(BuildContext context) {
   showModalBottomSheet(
+      enableDrag: false,
       isScrollControlled: true,
+      isDismissible: false,
       backgroundColor: Colors.black,
       context: context,
       shape: const RoundedRectangleBorder(
@@ -111,7 +114,10 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.52,
       decoration: const BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.only(
@@ -120,17 +126,25 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close)),
+              ],
+            ),
             Expanded(
               child: PageView(
                 controller: _pageController,
-                children: const [
-                  AddScreen1(),
-                  AddScreen2(),
-                  Center(child: Text('Screen 3')),
-                ],
+                children: const [AddScreen1(), AddScreen2(), AddScreen3()],
               ),
             ),
           ],
@@ -222,6 +236,7 @@ class _AddScreen2State extends State<AddScreen2> {
     _startTimeTextField.text = "언제부터";
     _endTimeTextField.text = "언제까지";
   }
+
   @override
   Widget build(BuildContext context) {
     DateTime initialStartTime;
@@ -248,9 +263,15 @@ class _AddScreen2State extends State<AddScreen2> {
     DateTime maximumDate;
     if (_endAnytime || _endTime == null) {
       maximumDate = DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
+        DateTime
+            .now()
+            .year,
+        DateTime
+            .now()
+            .month,
+        DateTime
+            .now()
+            .day,
         23,
         59,
       );
@@ -266,9 +287,15 @@ class _AddScreen2State extends State<AddScreen2> {
     DateTime minimumDate;
     if (_startAnytime || _startTime == null) {
       minimumDate = DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
+        DateTime
+            .now()
+            .year,
+        DateTime
+            .now()
+            .month,
+        DateTime
+            .now()
+            .day,
         0,
         0,
       );
@@ -381,7 +408,7 @@ class _AddScreen2State extends State<AddScreen2> {
             ),
             border: OutlineInputBorder(
               borderSide:
-                  BorderSide(color: ColorTheme.inactiveIcon, width: 0.1),
+              BorderSide(color: ColorTheme.inactiveIcon, width: 0.1),
               borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
           ),
@@ -464,7 +491,7 @@ class _AddScreen2State extends State<AddScreen2> {
             ),
             border: OutlineInputBorder(
               borderSide:
-                  BorderSide(color: ColorTheme.inactiveIcon, width: 0.5),
+              BorderSide(color: ColorTheme.inactiveIcon, width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
           ),
@@ -529,6 +556,165 @@ class _AddScreen2State extends State<AddScreen2> {
           },
         ),
       ],
+    );
+  }
+}
+
+class AddScreen3 extends StatefulWidget {
+  const AddScreen3({Key? key}) : super(key: key);
+
+  @override
+  State<AddScreen3> createState() => _AddScreen3State();
+}
+
+class _AddScreen3State extends State<AddScreen3> {
+  final List<String> selectedLocations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<TimingViewModel>(context, listen: false).queryLocationList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AddTimingSection(
+        title: "지역",
+        subTitle: "이동 가능한 지역을 선택 해 주세요!",
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Consumer<TimingViewModel>(
+                builder: (context, model, child) {
+                  if (model.locations.isEmpty) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return Wrap(
+                      spacing: 6,
+                      runSpacing: -9,
+                      children: model.locations
+                          .map((e) =>
+                          CustomFilterChip(
+                            label: e.titleKR,
+                            selected: selectedLocations.contains(e.id)
+                                ? true
+                                : false,
+                            onSelected: (selected) {
+                              HapticFeedback.lightImpact();
+                              if (selected) {
+                                if (selectedLocations.length < 5) {
+                                  setState(() {
+                                    selectedLocations.add(e.id);
+                                  });
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(16.0),
+                                          ),
+                                          // title: const Text('Alert'),
+                                          content: const SizedBox(
+                                            height: 75,
+                                            child: Center(
+                                              child: Text(
+                                                  '최대 5개의 지역을 선택 하실 수 있어요~'),
+                                            ),
+                                          ),
+                                          actions: [
+                                            Center(
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop();
+                                                },
+                                                child: const Text(
+                                                  '확인',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                }
+                              } else {
+                                setState(() {
+                                  selectedLocations.remove(e.id);
+                                });
+                              }
+                            },
+                          ))
+                          .toList(),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class AddTimingSection extends StatefulWidget {
+  final String title;
+  final String? subTitle;
+  final Widget content;
+
+  const AddTimingSection({
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.content,
+  }) : super(key: key);
+
+  @override
+  State<AddTimingSection> createState() => _AddTimingSectionState();
+}
+
+class _AddTimingSectionState extends State<AddTimingSection> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                if (widget.subTitle != null)
+                  Text(
+                    widget.subTitle!,
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.normal),
+                  )
+              ],
+            ),
+          ),
+          widget.content,
+        ],
+      ),
     );
   }
 }
