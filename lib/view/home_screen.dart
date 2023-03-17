@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:timing/models/ModelProvider.dart';
+import 'package:timing/models/schedule_model.dart';
+import 'package:timing/view/add_schedule/add_preview.dart';
 import 'package:timing/view/components/timing_appbar.dart';
 import 'package:timing/viewmodel/timing_viewmodel.dart';
 
@@ -31,15 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: const AppbarWithLogo(),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              /*navigate to AddTimingScreen*/
               HapticFeedback.heavyImpact();
               _showMultiScreenBottomSheet(context);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const AddScheduleScreen(),
-              //   ),
-              // );
             },
             child: const Icon(Icons.add),
           ),
@@ -97,6 +93,15 @@ class MultiScreenBottomSheet extends StatefulWidget {
 class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   late PageController _pageController;
 
+  ScheduleModel schedule = ScheduleModel(
+    date: DateTime.now(),
+    startTime: DateTime.now(),
+    endTime: DateTime.now(),
+    locationList: [],
+    activityItemList: [],
+    privacy: Privacy.ALL,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -107,6 +112,12 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  void updateSchedule(ScheduleModel newSchedule) {
+    setState(() {
+      schedule = newSchedule;
+    });
   }
 
   @override
@@ -139,11 +150,26 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
             Expanded(
               child: PageView(
                 controller: _pageController,
-                children: const [
-                  AddScreen1(),
-                  AddScreen2(),
-                  AddScreen3(),
-                  AddScreen4()
+                children: [
+                  AddScreen1(
+                    schedule: schedule,
+                    onUpdate: updateSchedule,
+                  ),
+                  AddScreen2(
+                    schedule: schedule,
+                    onUpdate: updateSchedule,
+                  ),
+                  AddScreen3(
+                    schedule: schedule,
+                    onUpdate: updateSchedule,
+                  ),
+                  AddScreen4(
+                    schedule: schedule,
+                    onUpdate: updateSchedule,
+                  ),
+                  AddPreviewScreen(
+                    schedule: schedule,
+                  )
                 ],
               ),
             ),

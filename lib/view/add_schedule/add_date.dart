@@ -1,14 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:timing/models/schedule_model.dart';
 
 class AddScreen1 extends StatefulWidget {
-  const AddScreen1({Key? key}) : super(key: key);
+  final Function(ScheduleModel) onUpdate;
+  final ScheduleModel schedule;
+
+  const AddScreen1({Key? key, required this.onUpdate, required this.schedule})
+      : super(key: key);
 
   @override
   State<AddScreen1> createState() => _AddScreen1State();
 }
 
+
 class _AddScreen1State extends State<AddScreen1> {
+   DateTime _selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _updateDate(DateTime newDate) {
+    setState(() {
+      _selectedDate = newDate;
+    });
+    widget.onUpdate(ScheduleModel(date: _selectedDate,
+        startTime: widget.schedule.startTime,
+        endTime: widget.schedule.endTime,
+        locationList: widget.schedule.locationList,
+        activityItemList: widget.schedule.activityItemList,
+        privacy: widget.schedule.privacy));
+  }
+
   DateTime? _date = DateTime.now();
 
   DateTime _firstDateOfCurrentMonth() {
@@ -33,10 +58,12 @@ class _AddScreen1State extends State<AddScreen1> {
 
   @override
   Widget build(BuildContext context) {
+    _selectedDate = widget.schedule.date;
     return Column(
       children: [
         SfDateRangePicker(
           selectionMode: DateRangePickerSelectionMode.single,
+          initialSelectedDate: _selectedDate,
           view: DateRangePickerView.month,
           monthViewSettings: const DateRangePickerMonthViewSettings(
             firstDayOfWeek: 1,
@@ -44,6 +71,7 @@ class _AddScreen1State extends State<AddScreen1> {
           onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
             setState(() {
               _date = args.value;
+              _updateDate(_date!);
             });
           },
           minDate: _firstDateOfCurrentMonth(),

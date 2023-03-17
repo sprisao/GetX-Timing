@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:timing/models/schedule_model.dart';
 
 import '../../style/theme.dart';
 import '../../viewmodel/timing_viewmodel.dart';
 import '../components/add_section.dart';
 
 class AddScreen4 extends StatefulWidget {
-  const AddScreen4({Key? key}) : super(key: key);
+  final Function(ScheduleModel) onUpdate;
+  final ScheduleModel schedule;
+
+  const AddScreen4({Key? key, required this.onUpdate, required this.schedule})
+      : super(key: key);
 
   @override
   State<AddScreen4> createState() => _AddScreen4State();
 }
 
 class _AddScreen4State extends State<AddScreen4> {
-  final List<String> _selectedActivities = [];
+  List<String> _selectedActivities = [];
 
   @override
   void initState() {
@@ -23,8 +28,23 @@ class _AddScreen4State extends State<AddScreen4> {
         .queryActivityCatWithItem();
   }
 
+  void _updateActivities(List<String> activities) {
+    setState(() {
+      _selectedActivities = activities;
+    });
+    widget.onUpdate(ScheduleModel(
+        date: widget.schedule.date,
+        startTime: widget.schedule.startTime,
+        endTime: widget.schedule.endTime,
+        locationList: widget.schedule.locationList,
+        activityItemList: _selectedActivities,
+        privacy: widget.schedule.privacy));
+  }
+
   @override
   Widget build(BuildContext context) {
+    _selectedActivities = widget.schedule.activityItemList;
+
     return Consumer<TimingViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
         child: Column(
@@ -63,38 +83,46 @@ class _AddScreen4State extends State<AddScreen4> {
                                   showCheckmark: false,
                                   shadowColor: Colors.transparent,
                                   side: BorderSide(
-                                      color:
-                                      _selectedActivities.contains(activity.id)
+                                      color: _selectedActivities
+                                              .contains(activity.id)
                                           ? _selectedActivities
-                                          .indexOf(activity.id) <
-                                          3
-                                          ? ColorTheme.primary
-                                          : ColorTheme.secondary
+                                                      .indexOf(activity.id) <
+                                                  3
+                                              ? ColorTheme.primary
+                                              : ColorTheme.secondary
                                           : ColorTheme.inactiveIcon,
                                       width: 1),
                                   labelStyle: TextStyle(
                                       fontSize: 15,
                                       color: _selectedActivities
-                                          .indexOf(activity.id) <
-                                          3
+                                                  .indexOf(activity.id) <
+                                              3
                                           ? ColorTheme.black
                                           : ColorTheme.white),
-                                  label: Text(activity.emoji + activity.titleKR),
+                                  label:
+                                      Text(activity.emoji + activity.titleKR),
                                   selected:
-                                  _selectedActivities.contains(activity.id),
+                                      _selectedActivities.contains(activity.id),
                                   selectedColor:
-                                  _selectedActivities.indexOf(activity.id) < 3
-                                      ? ColorTheme.primaryLight
-                                      : ColorTheme.secondaryLight,
+                                      _selectedActivities.indexOf(activity.id) <
+                                              3
+                                          ? ColorTheme.primaryLight
+                                          : ColorTheme.secondaryLight,
                                   onSelected: (isSelected) {
                                     HapticFeedback.mediumImpact();
                                     setState(() {
                                       if (_selectedActivities
                                           .contains(activity.id)) {
-                                        _selectedActivities.remove(activity.id);
+                                        _updateActivities(_selectedActivities
+                                            .where((element) =>
+                                                element != activity.id)
+                                            .toList());
                                       } else {
                                         if (_selectedActivities.length < 7) {
-                                          _selectedActivities.add(activity.id);
+                                          _updateActivities([
+                                            ..._selectedActivities,
+                                            activity.id
+                                          ]);
                                         } else {
                                           showDialog(
                                               context: context,
