@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:timing/models/activity_model.dart';
 import 'package:timing/models/schedule_model.dart';
 
 import '../../style/theme.dart';
@@ -8,8 +9,8 @@ import '../../viewmodel/timing_viewmodel.dart';
 import '../components/add_section.dart';
 
 class AddScreen4 extends StatefulWidget {
-  final Function(ScheduleModel) onUpdate;
-  final ScheduleModel schedule;
+  final Function(CreateScheduleModel) onUpdate;
+  final CreateScheduleModel schedule;
 
   const AddScreen4({Key? key, required this.onUpdate, required this.schedule})
       : super(key: key);
@@ -19,7 +20,7 @@ class AddScreen4 extends StatefulWidget {
 }
 
 class _AddScreen4State extends State<AddScreen4> {
-  List<String> _selectedActivities = [];
+  List<ActivityItemModel> _selectedActivities = [];
 
   @override
   void initState() {
@@ -28,11 +29,11 @@ class _AddScreen4State extends State<AddScreen4> {
         .queryActivityCatWithItem();
   }
 
-  void _updateActivities(List<String> activities) {
+  void _updateActivities(List<ActivityItemModel> activities) {
     setState(() {
       _selectedActivities = activities;
     });
-    widget.onUpdate(ScheduleModel(
+    widget.onUpdate(CreateScheduleModel(
         date: widget.schedule.date,
         startTime: widget.schedule.startTime,
         endTime: widget.schedule.endTime,
@@ -84,9 +85,9 @@ class _AddScreen4State extends State<AddScreen4> {
                                   shadowColor: Colors.transparent,
                                   side: BorderSide(
                                       color: _selectedActivities
-                                              .contains(activity.id)
+                                              .contains(activity)
                                           ? _selectedActivities
-                                                      .indexOf(activity.id) <
+                                                      .indexOf(activity) <
                                                   3
                                               ? ColorTheme.primary
                                               : ColorTheme.secondary
@@ -95,16 +96,16 @@ class _AddScreen4State extends State<AddScreen4> {
                                   labelStyle: TextStyle(
                                       fontSize: 15,
                                       color: _selectedActivities
-                                                  .indexOf(activity.id) <
+                                                  .indexOf(activity) <
                                               3
                                           ? ColorTheme.black
                                           : ColorTheme.white),
                                   label:
                                       Text(activity.emoji + activity.titleKR),
                                   selected:
-                                      _selectedActivities.contains(activity.id),
+                                      _selectedActivities.contains(activity),
                                   selectedColor:
-                                      _selectedActivities.indexOf(activity.id) <
+                                      _selectedActivities.indexOf(activity) <
                                               3
                                           ? ColorTheme.primaryLight
                                           : ColorTheme.secondaryLight,
@@ -112,16 +113,16 @@ class _AddScreen4State extends State<AddScreen4> {
                                     HapticFeedback.mediumImpact();
                                     setState(() {
                                       if (_selectedActivities
-                                          .contains(activity.id)) {
+                                          .contains(activity)) {
                                         _updateActivities(_selectedActivities
                                             .where((element) =>
-                                                element != activity.id)
+                                                element != activity)
                                             .toList());
                                       } else {
                                         if (_selectedActivities.length < 7) {
                                           _updateActivities([
                                             ..._selectedActivities,
-                                            activity.id
+                                            activity
                                           ]);
                                         } else {
                                           showDialog(

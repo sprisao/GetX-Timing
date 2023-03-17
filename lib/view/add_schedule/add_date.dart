@@ -3,8 +3,8 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:timing/models/schedule_model.dart';
 
 class AddScreen1 extends StatefulWidget {
-  final Function(ScheduleModel) onUpdate;
-  final ScheduleModel schedule;
+  final Function(CreateScheduleModel) onUpdate;
+  final CreateScheduleModel schedule;
 
   const AddScreen1({Key? key, required this.onUpdate, required this.schedule})
       : super(key: key);
@@ -26,7 +26,7 @@ class _AddScreen1State extends State<AddScreen1> {
     setState(() {
       _selectedDate = newDate;
     });
-    widget.onUpdate(ScheduleModel(date: _selectedDate,
+    widget.onUpdate(CreateScheduleModel(date: _selectedDate,
         startTime: widget.schedule.startTime,
         endTime: widget.schedule.endTime,
         locationList: widget.schedule.locationList,

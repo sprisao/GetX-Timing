@@ -1,3 +1,7 @@
+import 'package:timing/models/ModelProvider.dart';
+import 'package:timing/models/activity_model.dart';
+import 'package:timing/models/location_model.dart';
+
 import 'Privacy.dart';
 
 class ScheduleModel {
@@ -38,4 +42,23 @@ class ScheduleModel {
         'locationList': locationList,
         'activityItemList': activityItemList,
       };
+}
+
+class CreateScheduleModel {
+  final DateTime date;
+  final DateTime startTime;
+  final DateTime endTime;
+  final Privacy privacy;
+  final List<LocationModel> locationList;
+  final List<ActivityItemModel> activityItemList;
+
+  CreateScheduleModel({
+    required this.date,
+    required this.startTime,
+    required this.endTime,
+    required this.privacy,
+    required this.locationList,
+    required this.activityItemList,
+  });
+
 }

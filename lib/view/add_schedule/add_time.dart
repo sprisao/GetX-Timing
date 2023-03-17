@@ -10,8 +10,8 @@ import '../../style/theme.dart';
 import '../components/timing_filterchip.dart';
 
 class AddScreen2 extends StatefulWidget {
-  final Function(ScheduleModel) onUpdate;
-  final ScheduleModel schedule;
+  final Function(CreateScheduleModel) onUpdate;
+  final CreateScheduleModel schedule;
 
   const AddScreen2({Key? key, required this.onUpdate, required this.schedule})
       : super(key: key);
@@ -45,7 +45,7 @@ class _AddScreen2State extends State<AddScreen2> {
       _startTime = newStartTime;
       _endTime = newEndTime;
     });
-    widget.onUpdate(ScheduleModel(
+    widget.onUpdate(CreateScheduleModel(
         date: widget.schedule.date,
         startTime: _startTime,
         endTime: _endTime,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:timing/models/Location.dart';
+import 'package:timing/models/location_model.dart';
 import 'package:timing/models/schedule_model.dart';
 
 import '../../viewmodel/timing_viewmodel.dart';
@@ -8,8 +10,8 @@ import '../components/add_section.dart';
 import '../components/timing_filterchip.dart';
 
 class AddScreen3 extends StatefulWidget {
-  final Function(ScheduleModel) onUpdate;
-  final ScheduleModel schedule;
+  final Function(CreateScheduleModel) onUpdate;
+  final CreateScheduleModel schedule;
 
   const AddScreen3({Key? key, required this.onUpdate, required this.schedule})
       : super(key: key);
@@ -19,7 +21,7 @@ class AddScreen3 extends StatefulWidget {
 }
 
 class _AddScreen3State extends State<AddScreen3> {
-  List<String> selectedLocations = [];
+  List<LocationModel> selectedLocations = [];
 
   @override
   void initState() {
@@ -27,11 +29,11 @@ class _AddScreen3State extends State<AddScreen3> {
     Provider.of<TimingViewModel>(context, listen: false).queryLocationList();
   }
 
-  void _updateLocations(List<String> locations) {
+  void _updateLocations(List<LocationModel> locations) {
     setState(() {
       selectedLocations = locations;
     });
-    widget.onUpdate(ScheduleModel(
+    widget.onUpdate(CreateScheduleModel(
         date: widget.schedule.date,
         startTime: widget.schedule.startTime,
         endTime: widget.schedule.endTime,
@@ -67,7 +69,7 @@ class _AddScreen3State extends State<AddScreen3> {
                       children: model.locations
                           .map((e) => CustomFilterChip(
                                 label: e.titleKR,
-                                selected: selectedLocations.contains(e.id)
+                                selected: selectedLocations.contains(e)
                                     ? true
                                     : false,
                                 onSelected: (selected) {
@@ -76,7 +78,7 @@ class _AddScreen3State extends State<AddScreen3> {
                                     if (selectedLocations.length < 5) {
                                       setState(() {
                                         _updateLocations(
-                                            [...selectedLocations, e.id]);
+                                            [...selectedLocations, e]);
                                       });
                                     } else {
                                       showDialog(
@@ -117,8 +119,8 @@ class _AddScreen3State extends State<AddScreen3> {
                                   } else {
                                     setState(() {
                                       _updateLocations(
-                                        [...selectedLocations]
-                                          ..removeWhere((element) => element == e.id),
+                                        [...selectedLocations]..removeWhere(
+                                            (element) => element == e),
                                       );
                                     });
                                   }

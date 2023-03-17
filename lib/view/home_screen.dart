@@ -93,7 +93,7 @@ class MultiScreenBottomSheet extends StatefulWidget {
 class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   late PageController _pageController;
 
-  ScheduleModel schedule = ScheduleModel(
+  CreateScheduleModel schedule = CreateScheduleModel(
     date: DateTime.now(),
     startTime: DateTime.now(),
     endTime: DateTime.now(),
@@ -114,7 +114,7 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
     super.dispose();
   }
 
-  void updateSchedule(ScheduleModel newSchedule) {
+  void updateSchedule(CreateScheduleModel newSchedule) {
     setState(() {
       schedule = newSchedule;
     });
