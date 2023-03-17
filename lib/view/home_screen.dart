@@ -51,11 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView(
                   shrinkWrap: true,
                   children: model.myScheduleList
-                      .map((e) =>
-                      ListTile(
-                        title: Text(e.startTime.toString()),
-                        subtitle: Text(e.endTime.toString()),
-                      ))
+                      .map((e) => ListTile(
+                            title: Text(e.startTime.toString()),
+                            subtitle: Text(e.endTime.toString()),
+                          ))
                       .toList(),
                 ),
                 FilledButton(
@@ -114,10 +113,7 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * 0.52,
+      height: MediaQuery.of(context).size.height * 0.52,
       decoration: const BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.only(
@@ -144,7 +140,12 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
             Expanded(
               child: PageView(
                 controller: _pageController,
-                children: const [AddScreen1(), AddScreen2(), AddScreen3()],
+                children: const [
+                  AddScreen1(),
+                  AddScreen2(),
+                  AddScreen3(),
+                  AddScreen4()
+                ],
               ),
             ),
           ],
@@ -263,15 +264,9 @@ class _AddScreen2State extends State<AddScreen2> {
     DateTime maximumDate;
     if (_endAnytime || _endTime == null) {
       maximumDate = DateTime(
-        DateTime
-            .now()
-            .year,
-        DateTime
-            .now()
-            .month,
-        DateTime
-            .now()
-            .day,
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
         23,
         59,
       );
@@ -287,15 +282,9 @@ class _AddScreen2State extends State<AddScreen2> {
     DateTime minimumDate;
     if (_startAnytime || _startTime == null) {
       minimumDate = DateTime(
-        DateTime
-            .now()
-            .year,
-        DateTime
-            .now()
-            .month,
-        DateTime
-            .now()
-            .day,
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
         0,
         0,
       );
@@ -408,7 +397,7 @@ class _AddScreen2State extends State<AddScreen2> {
             ),
             border: OutlineInputBorder(
               borderSide:
-              BorderSide(color: ColorTheme.inactiveIcon, width: 0.1),
+                  BorderSide(color: ColorTheme.inactiveIcon, width: 0.1),
               borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
           ),
@@ -491,7 +480,7 @@ class _AddScreen2State extends State<AddScreen2> {
             ),
             border: OutlineInputBorder(
               borderSide:
-              BorderSide(color: ColorTheme.inactiveIcon, width: 0.5),
+                  BorderSide(color: ColorTheme.inactiveIcon, width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
           ),
@@ -599,62 +588,61 @@ class _AddScreen3State extends State<AddScreen3> {
                       spacing: 6,
                       runSpacing: -9,
                       children: model.locations
-                          .map((e) =>
-                          CustomFilterChip(
-                            label: e.titleKR,
-                            selected: selectedLocations.contains(e.id)
-                                ? true
-                                : false,
-                            onSelected: (selected) {
-                              HapticFeedback.lightImpact();
-                              if (selected) {
-                                if (selectedLocations.length < 5) {
-                                  setState(() {
-                                    selectedLocations.add(e.id);
-                                  });
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(16.0),
-                                          ),
-                                          // title: const Text('Alert'),
-                                          content: const SizedBox(
-                                            height: 75,
-                                            child: Center(
-                                              child: Text(
-                                                  '최대 5개의 지역을 선택 하실 수 있어요~'),
-                                            ),
-                                          ),
-                                          actions: [
-                                            Center(
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop();
-                                                },
-                                                child: const Text(
-                                                  '확인',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18),
+                          .map((e) => CustomFilterChip(
+                                label: e.titleKR,
+                                selected: selectedLocations.contains(e.id)
+                                    ? true
+                                    : false,
+                                onSelected: (selected) {
+                                  HapticFeedback.lightImpact();
+                                  if (selected) {
+                                    if (selectedLocations.length < 5) {
+                                      setState(() {
+                                        selectedLocations.add(e.id);
+                                      });
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                              ),
+                                              // title: const Text('Alert'),
+                                              content: const SizedBox(
+                                                height: 75,
+                                                child: Center(
+                                                  child: Text(
+                                                      '최대 5개의 지역을 선택 하실 수 있어요~'),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                }
-                              } else {
-                                setState(() {
-                                  selectedLocations.remove(e.id);
-                                });
-                              }
-                            },
-                          ))
+                                              actions: [
+                                                Center(
+                                                  child: TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text(
+                                                      '확인',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    }
+                                  } else {
+                                    setState(() {
+                                      selectedLocations.remove(e.id);
+                                    });
+                                  }
+                                },
+                              ))
                           .toList(),
                     );
                   }
@@ -663,6 +651,142 @@ class _AddScreen3State extends State<AddScreen3> {
             ],
           ),
         ));
+  }
+}
+
+class AddScreen4 extends StatefulWidget {
+  const AddScreen4({Key? key}) : super(key: key);
+
+  @override
+  State<AddScreen4> createState() => _AddScreen4State();
+}
+
+class _AddScreen4State extends State<AddScreen4> {
+  final List<String> _selectedActivities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<TimingViewModel>(context, listen: false)
+        .queryActivityCatWithItem();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TimingViewModel>(builder: (context, viewModel, child) {
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            AddTimingSection(
+                title: "활동",
+                subTitle: "무엇을 하고 싶으신가요? \n하고 싶은 활동을 최대 7개까지 골라보세요!",
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: viewModel.activityCatWithItems.map((entry) {
+                      final categoryTitle = entry.titleKR;
+                      final activities = entry.activityItems;
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 30),
+                          Text(
+                            categoryTitle,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 6,
+                            runSpacing: -4,
+                            children: activities.map((activity) {
+                              return FilterChip(
+                                  backgroundColor: Colors.transparent,
+                                  showCheckmark: false,
+                                  shadowColor: Colors.transparent,
+                                  side: BorderSide(
+                                      color:
+                                          _selectedActivities.contains(activity.id)
+                                              ? _selectedActivities
+                                                          .indexOf(activity.id) <
+                                                      3
+                                                  ? ColorTheme.primary
+                                                  : ColorTheme.secondary
+                                              : ColorTheme.inactiveIcon,
+                                      width: 1),
+                                  labelStyle: TextStyle(
+                                      fontSize: 15,
+                                      color: _selectedActivities
+                                                  .indexOf(activity.id) <
+                                              3
+                                          ? ColorTheme.black
+                                          : ColorTheme.white),
+                                  label: Text(activity.emoji + activity.titleKR),
+                                  selected:
+                                      _selectedActivities.contains(activity.id),
+                                  selectedColor:
+                                      _selectedActivities.indexOf(activity.id) < 3
+                                          ? ColorTheme.primaryLight
+                                          : ColorTheme.secondaryLight,
+                                  onSelected: (isSelected) {
+                                    HapticFeedback.mediumImpact();
+                                    setState(() {
+                                      if (_selectedActivities
+                                          .contains(activity.id)) {
+                                        _selectedActivities.remove(activity.id);
+                                      } else {
+                                        if (_selectedActivities.length < 7) {
+                                          _selectedActivities.add(activity.id);
+                                        } else {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  content: const Text(
+                                                      '최대 7개까지 선택할 수 있어요.'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text('확인',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color: ColorTheme
+                                                                  .black)),
+                                                    ),
+                                                  ],
+                                                );
+                                              });
+                                        }
+                                      }
+                                    });
+                                  });
+                            }).toList(),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          const Divider(
+                            color: ColorTheme.inactiveIcon,
+                            thickness: 0.2,
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                )),
+          ],
+        ),
+      );
+    });
   }
 }
 
