@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:timing/models/Location.dart';
 import 'package:timing/models/location_model.dart';
 import 'package:timing/models/schedule_model.dart';
 
@@ -75,7 +74,7 @@ class _AddScreen3State extends State<AddScreen3> {
                                 onSelected: (selected) {
                                   HapticFeedback.lightImpact();
                                   if (selected) {
-                                    if (selectedLocations.length < 5) {
+                                    if (selectedLocations.length < 3) {
                                       setState(() {
                                         _updateLocations(
                                             [...selectedLocations, e]);
@@ -94,7 +93,7 @@ class _AddScreen3State extends State<AddScreen3> {
                                                 height: 75,
                                                 child: Center(
                                                   child: Text(
-                                                      '최대 5개의 지역을 선택 하실 수 있어요~'),
+                                                      '최대 3개의 지역을 선택 하실 수 있어요~'),
                                                 ),
                                               ),
                                               actions: [
