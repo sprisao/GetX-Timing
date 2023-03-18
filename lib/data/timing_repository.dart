@@ -81,15 +81,17 @@ class TimingRepository {
       final TemporalDateTime date = TemporalDateTime(
           DateTime(schedule.date.year, schedule.date.month, schedule.date.day));
       final TemporalDateTime startTime = TemporalDateTime(DateTime(
-          schedule.startTime.year,
-          schedule.startTime.month,
-          schedule.startTime.day,
-          schedule.startTime.hour));
+          schedule.date.year,
+          schedule.date.month,
+          schedule.date.day,
+          schedule.startTime.hour,
+          schedule.startTime.minute));
       final TemporalDateTime endTime = TemporalDateTime(DateTime(
-          schedule.endTime.year,
-          schedule.endTime.month,
-          schedule.endTime.day,
-          schedule.endTime.hour));
+          schedule.date.year,
+          schedule.date.month,
+          schedule.date.day,
+          schedule.endTime.hour,
+          schedule.endTime.minute));
 
       Privacy privacy = thisPrivacy;
       List<String> locationList =

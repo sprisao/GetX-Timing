@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:timing/models/ModelProvider.dart';
 import 'package:timing/models/schedule_model.dart';
@@ -46,16 +47,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView(
                   shrinkWrap: true,
                   children: model.myScheduleList
-                      .map((e) => ListTile(
-                            title: Text(e.startTime.toString()),
-                            subtitle: Text(e.endTime.toString()),
-                          ))
+                      .map((e) => Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              /*date in korean format*/
+                              Text(DateFormat('d일 E요일', 'ko').format(e.date)),
+                              Column(
+                                children: [
+                                  Text(DateFormat('hh:mm a')
+                                      .format(e.startTime.toLocal())),
+                                  Text(DateFormat('hh:mm a')
+                                      .format(e.endTime.toLocal())),
+                                ],
+                              )
+                              /*time in korea time zone*/
+                            ],
+                          )))
                       .toList(),
                 ),
-                FilledButton(
-                    onPressed: () {}, child: Text('Show Friends list')),
-                FilledButton(
-                    onPressed: () {}, child: Text("Show Friend's Schedule")),
               ],
             ),
           ),
