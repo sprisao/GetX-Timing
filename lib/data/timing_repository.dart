@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:timing/data/api_service/graphql_queries.dart';
 import 'package:timing/models/ModelProvider.dart';
 import 'package:timing/models/activity_model.dart';
@@ -72,25 +73,42 @@ class TimingRepository {
 
   /* 스케쥴 생성 */
   Future<void> createSchedule(
-      List<String> selectedLocations, List<String> selectedActivities) async {
-    /*selectedLocations 와 selectedActivityItem을 포함한 Schedule 생성*/
-    safePrint(selectedLocations.length + selectedActivities.length);
-
+      CreateScheduleModel schedule, Privacy thisPrivacy) async {
     try {
       final currentUser = await Amplify.Auth.getCurrentUser();
+
+      /* Convert DateTime to TemporalDateTime format */
+      final TemporalDateTime date = TemporalDateTime(
+          DateTime(schedule.date.year, schedule.date.month, schedule.date.day));
+      final TemporalDateTime startTime = TemporalDateTime(DateTime(
+          schedule.startTime.year,
+          schedule.startTime.month,
+          schedule.startTime.day,
+          schedule.startTime.hour));
+      final TemporalDateTime endTime = TemporalDateTime(DateTime(
+          schedule.endTime.year,
+          schedule.endTime.month,
+          schedule.endTime.day,
+          schedule.endTime.hour));
+
+      Privacy privacy = thisPrivacy;
+      List<String> locationList =
+          schedule.locationList.map((e) => e.id).toList();
+      List<String> activityItemList =
+          schedule.activityItemList.map((e) => e.id).toList();
 
       final userResponse = await Amplify.API
           .query(request: ModelQueries.get(User.classType, currentUser.userId))
           .response;
 
       final model = Schedule(
-          date: TemporalDateTime.fromString("1970-01-01T12:30:23.999Z"),
-          startTime: TemporalDateTime.fromString("1970-01-01T12:30:23.999Z"),
-          endTime: TemporalDateTime.fromString("1970-01-01T12:30:23.999Z"),
-          privacy: Privacy.ONLYPUBLIC,
+          date: date,
+          startTime: startTime,
+          endTime: endTime,
+          privacy: privacy,
           user: userResponse.data as User,
-          locationList: selectedLocations,
-          activityItemList: selectedActivities);
+          locationList: locationList,
+          activityItemList: activityItemList);
       final request = ModelMutations.create(model);
       final response = await Amplify.API.mutate(request: request).response;
 

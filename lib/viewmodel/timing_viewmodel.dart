@@ -45,7 +45,7 @@ class TimingViewModel with ChangeNotifier {
 
   /* 지역 데이터 가져오기 */
   Future<void> queryLocationList() async {
-     _locations = await _repository.getLocationList();
+    _locations = await _repository.getLocationList();
     notifyListeners();
   }
 
@@ -70,8 +70,8 @@ class TimingViewModel with ChangeNotifier {
 
   /* 스케쥴 생성 */
   Future<void> createSchedule(
-      List<String> selectedLocations, List<String> selectedActivities) async {
-    await _repository.createSchedule(selectedLocations, selectedActivities);
+      CreateScheduleModel schedule, Privacy privacy) async {
+    await _repository.createSchedule(schedule, privacy);
     notifyListeners();
   }
 
