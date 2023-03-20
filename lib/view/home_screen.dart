@@ -103,7 +103,9 @@ class MultiScreenBottomSheet extends StatefulWidget {
 }
 
 class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
+  bool isDateSelected = false;
   late PageController _pageController;
+  int _currentPage = 0;
 
   CreateScheduleModel schedule = CreateScheduleModel(
     date: DateTime.now(),
@@ -117,7 +119,7 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(initialPage: _currentPage);
   }
 
   @override
@@ -129,6 +131,26 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   void updateSchedule(CreateScheduleModel newSchedule) {
     setState(() {
       schedule = newSchedule;
+    });
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      _currentPage = page;
+    });
+  }
+
+  void goToPage(int page) {
+    _pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void onDateSelected(bool selected){
+    setState(() {
+      isDateSelected = selected;
     });
   }
 
@@ -162,26 +184,39 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
             Expanded(
               child: PageView(
                 controller: _pageController,
+                onPageChanged: onPageChanged,
                 children: [
                   AddScreen1(
                     schedule: schedule,
                     onUpdate: updateSchedule,
+                    goToPage: goToPage,
+                    currentPage: _currentPage,
+                    onDateSelected: onDateSelected,
+                    isDateSelected: isDateSelected,
                   ),
                   AddScreen2(
                     schedule: schedule,
                     onUpdate: updateSchedule,
+                    goToPage: goToPage,
+                    currentPage: _currentPage,
                   ),
                   AddScreen3(
                     schedule: schedule,
                     onUpdate: updateSchedule,
+                    goToPage: goToPage,
+                    currentPage: _currentPage,
                   ),
                   AddScreen4(
                     schedule: schedule,
                     onUpdate: updateSchedule,
+                    goToPage: goToPage,
+                    currentPage: _currentPage,
                   ),
                   AddPreviewScreen(
                     schedule: schedule,
-                  )
+                    goToPage: goToPage,
+                    currentPage: _currentPage,
+                  ),
                 ],
               ),
             ),

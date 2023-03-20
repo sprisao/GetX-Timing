@@ -12,8 +12,16 @@ import '../../style/theme.dart';
 
 class AddPreviewScreen extends StatefulWidget {
   final CreateScheduleModel schedule;
+  final Function(int page) goToPage;
+  final int currentPage;
 
-  const AddPreviewScreen({Key? key, required this.schedule}) : super(key: key);
+  const AddPreviewScreen(
+      {Key? key,
+      required this.schedule,
+      required this.goToPage,
+      required this.currentPage})
+      : super(key: key);
+
 
   @override
   State<AddPreviewScreen> createState() => _AddPreviewScreenState();

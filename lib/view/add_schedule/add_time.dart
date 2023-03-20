@@ -12,8 +12,15 @@ import '../components/timing_filterchip.dart';
 class AddScreen2 extends StatefulWidget {
   final Function(CreateScheduleModel) onUpdate;
   final CreateScheduleModel schedule;
+  final Function(int page) goToPage;
+  final int currentPage;
 
-  const AddScreen2({Key? key, required this.onUpdate, required this.schedule})
+  const AddScreen2(
+      {Key? key,
+      required this.onUpdate,
+      required this.schedule,
+      required this.goToPage,
+      required this.currentPage})
       : super(key: key);
 
   @override
