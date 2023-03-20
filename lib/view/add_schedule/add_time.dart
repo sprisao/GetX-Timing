@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timing/models/schedule_model.dart';
+import 'package:timing/util/time_manager.dart';
 import '../../style/theme.dart';
 
 class AddScreen2 extends StatefulWidget {
@@ -42,6 +43,8 @@ class _AddScreen2State extends State<AddScreen2> {
   @override
   void initState() {
     super.initState();
+    _startTime = widget.schedule.startTime;
+    _endTime = widget.schedule.endTime;
   }
 
   void _updateTimes(DateTime newStartTime, DateTime newEndTime) {
@@ -60,8 +63,6 @@ class _AddScreen2State extends State<AddScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    _startTime = widget.schedule.startTime;
-    _endTime = widget.schedule.endTime;
     _startTimeTextField.text = widget.isStartTimeSelected
         ? DateFormat('a h시 mm분', 'ko').format(_startTime)
         : "언제부터";
@@ -177,16 +178,11 @@ class _AddScreen2State extends State<AddScreen2> {
                                                       DateTime.now().year,
                                                       DateTime.now().month,
                                                       DateTime.now().day)
-                                              ? DateTime(
-                                                  DateTime.now().year,
-                                                  DateTime.now().month,
-                                                  DateTime.now().day,
-                                                  DateTime.now().hour,
-                                                  DateTime.now().minute,
-                                                )
+                                              ? DateTimeUtils.roundToNearest(
+                                                  DateTime.now(), 5)
                                               : null,
                                           mode: CupertinoDatePickerMode.time,
-                                          use24hFormat: true,
+                                          use24hFormat: false,
                                           minuteInterval: 10,
                                           initialDateTime: _startTime,
                                           onDateTimeChanged: (picked) {
@@ -296,7 +292,7 @@ class _AddScreen2State extends State<AddScreen2> {
                                                   ? _startTime
                                                   : null,
                                           mode: CupertinoDatePickerMode.time,
-                                          use24hFormat: true,
+                                          use24hFormat: false,
                                           minuteInterval: 10,
                                           initialDateTime:
                                               widget.isEndTimeSelected
