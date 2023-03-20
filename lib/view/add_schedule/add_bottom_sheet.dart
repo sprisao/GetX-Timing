@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/Privacy.dart';
 import '../../models/schedule_model.dart';
+import '../../util/time_manager.dart';
 import '../../viewmodel/timing_viewmodel.dart';
 import 'add_activity.dart';
 import 'add_date.dart';
@@ -28,14 +29,7 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   late PageController _pageController;
   int _currentPage = 0;
 
-  CreateScheduleModel schedule = CreateScheduleModel(
-    date: DateTime.now(),
-    startTime: DateTime.now(),
-    endTime: DateTime.now(),
-    locationList: [],
-    activityItemList: [],
-    privacy: Privacy.ALL,
-  );
+  late CreateScheduleModel schedule;
 
   @override
   void initState() {
@@ -44,6 +38,14 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
         .queryActivityCatWithItem();
     Provider.of<TimingViewModel>(context, listen: false).queryLocationList();
     _pageController = PageController(initialPage: _currentPage);
+    schedule = CreateScheduleModel(
+      date: DateTime.now(),
+      startTime: DateTimeUtils.roundToNearest(DateTime.now(), 5),
+      endTime: DateTimeUtils.roundToNearest(DateTime.now(), 5),
+      locationList: [],
+      activityItemList: [],
+      privacy: Privacy.ALL,
+    );
   }
 
   @override
@@ -131,12 +133,12 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
                 _currentPage == 0
                     ? const SizedBox()
                     : IconButton(
-                    onPressed: () {
-                      _pageController.previousPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios)),
+                        onPressed: () {
+                          _pageController.previousPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut);
+                        },
+                        icon: const Icon(Icons.arrow_back_ios)),
                 IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -156,6 +158,8 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
                     currentPage: _currentPage,
                     onDateSelected: onDateSelected,
                     isDateSelected: isDateSelected,
+                    onStartTimeSelected: onStartTimeSelected,
+                    onEndTimeSelected: onEndTimeSelected,
                   ),
                   AddScreen2(
                     schedule: schedule,
