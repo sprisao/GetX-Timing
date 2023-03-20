@@ -48,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   shrinkWrap: true,
                   children: model.myScheduleList
                       .map((e) => Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,6 +105,12 @@ class MultiScreenBottomSheet extends StatefulWidget {
 
 class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
   bool isDateSelected = false;
+  bool isStartTimeSelected = false;
+  bool isEndTimeSelected = false;
+  bool isLocationSelected = false;
+  bool isActivitySelected = false;
+  bool isPrivacySelected = false;
+
   late PageController _pageController;
   int _currentPage = 0;
 
@@ -148,9 +155,39 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
     );
   }
 
-  void onDateSelected(bool selected){
+  void onDateSelected(bool selected) {
     setState(() {
       isDateSelected = selected;
+    });
+  }
+
+  void onStartTimeSelected(bool selected) {
+    setState(() {
+      isStartTimeSelected = selected;
+    });
+  }
+
+  void onEndTimeSelected(bool selected) {
+    setState(() {
+      isEndTimeSelected = selected;
+    });
+  }
+
+  void onLocationSelected(bool selected) {
+    setState(() {
+      isLocationSelected = selected;
+    });
+  }
+
+  void onActivitySelected(bool selected) {
+    setState(() {
+      isActivitySelected = selected;
+    });
+  }
+
+  void onPrivacySelected(bool selected) {
+    setState(() {
+      isPrivacySelected = selected;
     });
   }
 
@@ -171,9 +208,18 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                _currentPage == 0
+                    ? const SizedBox()
+                    : IconButton(
+                        onPressed: () {
+                          _pageController.previousPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut);
+                        },
+                        icon: const Icon(Icons.arrow_back_ios)),
                 IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -199,6 +245,10 @@ class _MultiScreenBottomSheetState extends State<MultiScreenBottomSheet> {
                     onUpdate: updateSchedule,
                     goToPage: goToPage,
                     currentPage: _currentPage,
+                    onStartTimeSelected: onStartTimeSelected,
+                    onEndTimeSelected: onEndTimeSelected,
+                    isStartTimeSelected: isStartTimeSelected,
+                    isEndTimeSelected: isEndTimeSelected,
                   ),
                   AddScreen3(
                     schedule: schedule,
