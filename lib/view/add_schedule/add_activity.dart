@@ -1,3 +1,4 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -13,13 +14,17 @@ class AddScreen4 extends StatefulWidget {
   final CreateScheduleModel schedule;
   final Function(int page) goToPage;
   final int currentPage;
+  final Function(bool selected) onActivitySelected;
+  final bool isActivitySelected;
 
   const AddScreen4(
       {Key? key,
       required this.onUpdate,
       required this.schedule,
       required this.goToPage,
-      required this.currentPage})
+      required this.currentPage,
+      required this.onActivitySelected,
+      required this.isActivitySelected})
       : super(key: key);
 
   @override
@@ -27,13 +32,12 @@ class AddScreen4 extends StatefulWidget {
 }
 
 class _AddScreen4State extends State<AddScreen4> {
-  List<ActivityItemModel> _selectedActivities = [];
+  late List<ActivityItemModel> _selectedActivities;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<TimingViewModel>(context, listen: false)
-        .queryActivityCatWithItem();
+    _selectedActivities = widget.schedule.activityItemList;
   }
 
   void _updateActivities(List<ActivityItemModel> activities) {
@@ -51,8 +55,8 @@ class _AddScreen4State extends State<AddScreen4> {
 
   @override
   Widget build(BuildContext context) {
-    _selectedActivities = widget.schedule.activityItemList;
 
+    safePrint(_selectedActivities);
     return Consumer<TimingViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
         child: Column(
@@ -91,14 +95,14 @@ class _AddScreen4State extends State<AddScreen4> {
                                   showCheckmark: false,
                                   shadowColor: Colors.transparent,
                                   side: BorderSide(
-                                      color: _selectedActivities
-                                              .contains(activity)
-                                          ? _selectedActivities
-                                                      .indexOf(activity) <
-                                                  3
-                                              ? ColorTheme.primary
-                                              : ColorTheme.secondary
-                                          : ColorTheme.inactiveIcon,
+                                      color:
+                                          _selectedActivities.contains(activity)
+                                              ? _selectedActivities
+                                                          .indexOf(activity) <
+                                                      3
+                                                  ? ColorTheme.primary
+                                                  : ColorTheme.secondary
+                                              : ColorTheme.inactiveIcon,
                                       width: 1),
                                   labelStyle: TextStyle(
                                       fontSize: 15,
@@ -112,8 +116,7 @@ class _AddScreen4State extends State<AddScreen4> {
                                   selected:
                                       _selectedActivities.contains(activity),
                                   selectedColor:
-                                      _selectedActivities.indexOf(activity) <
-                                              3
+                                      _selectedActivities.indexOf(activity) < 3
                                           ? ColorTheme.primaryLight
                                           : ColorTheme.secondaryLight,
                                   onSelected: (isSelected) {
@@ -171,6 +174,23 @@ class _AddScreen4State extends State<AddScreen4> {
                     }).toList(),
                   ),
                 )),
+            FilledButton(
+              onPressed: _selectedActivities.isNotEmpty
+                  ? () {
+                      widget.goToPage(4);
+                    }
+                  : null,
+              style: _selectedActivities.isNotEmpty
+                  ? FilledButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: ColorTheme.primary,
+                    )
+                  : FilledButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.grey,
+                    ),
+              child: const Text('다음'),
+            ),
           ],
         ),
       );
