@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:timing/data/api_service/graphql_queries.dart';
 import 'package:timing/models/ModelProvider.dart';
 import 'package:timing/models/activity_model.dart';
@@ -36,6 +35,7 @@ class TimingRepository {
   1. 만약 해당 이메일로 생성된 User가 없다면 생성
   2. 만약 해당 이메일로 생성된 User가 있다면 생성하지 않음
 */
+
   Future<void> initUser() async {
     final user = await Amplify.Auth.getCurrentUser();
     final userId = user.userId;
@@ -72,7 +72,7 @@ class TimingRepository {
   }
 
   /* 스케쥴 생성 */
-  Future<void> createSchedule(
+  Future<String> createSchedule(
       CreateScheduleModel schedule, Privacy thisPrivacy) async {
     try {
       final currentUser = await Amplify.Auth.getCurrentUser();
@@ -80,6 +80,7 @@ class TimingRepository {
       /* Convert DateTime to TemporalDateTime format */
       final TemporalDateTime date = TemporalDateTime(
           DateTime(schedule.date.year, schedule.date.month, schedule.date.day));
+
       final TemporalDateTime startTime = TemporalDateTime(DateTime(
           schedule.date.year,
           schedule.date.month,
@@ -94,6 +95,7 @@ class TimingRepository {
           schedule.endTime.minute));
 
       Privacy privacy = thisPrivacy;
+
       List<String> locationList =
           schedule.locationList.map((e) => e.id).toList();
       List<String> activityItemList =
@@ -118,11 +120,14 @@ class TimingRepository {
 
       if (createdSchedule == null) {
         safePrint('errors: ${response.errors}');
-        return;
+        return 'Error';
       }
-      safePrint('Mutation result: ${createdSchedule.id}');
+
+      safePrint(response.data);
+      return 'Success';
     } on ApiException catch (e) {
       safePrint('Mutation failed: $e');
+      return 'Failed';
     }
   }
 
