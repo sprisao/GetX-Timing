@@ -14,17 +14,13 @@ class AddScreen4 extends StatefulWidget {
   final CreateScheduleModel schedule;
   final Function(int page) goToPage;
   final int currentPage;
-  final Function(bool selected) onActivitySelected;
-  final bool isActivitySelected;
 
   const AddScreen4(
       {Key? key,
       required this.onUpdate,
       required this.schedule,
       required this.goToPage,
-      required this.currentPage,
-      required this.onActivitySelected,
-      required this.isActivitySelected})
+      required this.currentPage})
       : super(key: key);
 
   @override
