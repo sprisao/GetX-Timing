@@ -3,6 +3,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:timing/models/schedule_model.dart';
 
 import '../../style/theme.dart';
+import '../../util/time_manager.dart';
 
 class AddScreen1 extends StatefulWidget {
   final Function(CreateScheduleModel) onUpdate;
@@ -11,6 +12,8 @@ class AddScreen1 extends StatefulWidget {
   final int currentPage;
   final Function(bool selected) onDateSelected;
   final bool isDateSelected;
+  final Function(bool selected) onStartTimeSelected;
+  final Function(bool selected) onEndTimeSelected;
 
   const AddScreen1(
       {Key? key,
@@ -19,7 +22,9 @@ class AddScreen1 extends StatefulWidget {
       required this.goToPage,
       required this.currentPage,
       required this.onDateSelected,
-      required this.isDateSelected})
+      required this.isDateSelected,
+      required this.onStartTimeSelected,
+      required this.onEndTimeSelected})
       : super(key: key);
 
   @override
@@ -40,11 +45,13 @@ class _AddScreen1State extends State<AddScreen1> {
     });
     widget.onUpdate(CreateScheduleModel(
         date: _selectedDate,
-        startTime: widget.schedule.startTime,
-        endTime: widget.schedule.endTime,
+        startTime: DateTimeUtils.roundToNearest(DateTime.now(), 5),
+        endTime: DateTimeUtils.roundToNearest(DateTime.now(), 5),
         locationList: widget.schedule.locationList,
         activityItemList: widget.schedule.activityItemList,
         privacy: widget.schedule.privacy));
+    widget.onStartTimeSelected(false);
+    widget.onEndTimeSelected(false);
   }
 
   DateTime? _date = DateTime.now();
