@@ -1,9 +1,11 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:timing/models/location_model.dart';
 import 'package:timing/models/schedule_model.dart';
 
+import '../../style/theme.dart';
 import '../../viewmodel/timing_viewmodel.dart';
 import '../components/add_section.dart';
 import '../components/timing_filterchip.dart';
@@ -13,13 +15,17 @@ class AddScreen3 extends StatefulWidget {
   final CreateScheduleModel schedule;
   final Function(int page) goToPage;
   final int currentPage;
+  final Function(bool selected) onLocationSelected;
+  final bool isLocationSelected;
 
   const AddScreen3(
       {Key? key,
       required this.onUpdate,
       required this.schedule,
       required this.goToPage,
-      required this.currentPage})
+      required this.currentPage,
+      required this.onLocationSelected,
+      required this.isLocationSelected})
       : super(key: key);
 
   @override
@@ -27,17 +33,20 @@ class AddScreen3 extends StatefulWidget {
 }
 
 class _AddScreen3State extends State<AddScreen3> {
-  List<LocationModel> selectedLocations = [];
+  late List<LocationModel> selectedLocations;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<TimingViewModel>(context, listen: false).queryLocationList();
+    selectedLocations = widget.schedule.locationList;
   }
 
   void _updateLocations(List<LocationModel> locations) {
     setState(() {
       selectedLocations = locations;
+      selectedLocations.isNotEmpty
+          ? widget.onLocationSelected(true)
+          : widget.onLocationSelected(false);
     });
     widget.onUpdate(CreateScheduleModel(
         date: widget.schedule.date,
@@ -50,7 +59,6 @@ class _AddScreen3State extends State<AddScreen3> {
 
   @override
   Widget build(BuildContext context) {
-    selectedLocations = widget.schedule.locationList;
 
     return AddTimingSection(
         title: "지역",
@@ -126,7 +134,7 @@ class _AddScreen3State extends State<AddScreen3> {
                                     setState(() {
                                       _updateLocations(
                                         [...selectedLocations]..removeWhere(
-                                            (element) => element == e),
+                                            (element) => element.id == e.id),
                                       );
                                     });
                                   }
@@ -136,6 +144,23 @@ class _AddScreen3State extends State<AddScreen3> {
                     );
                   }
                 },
+              ),
+              FilledButton(
+                onPressed: widget.isLocationSelected
+                    ? () {
+                        widget.goToPage(3);
+                      }
+                    : null,
+                style: widget.isLocationSelected
+                    ? FilledButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: ColorTheme.primary,
+                      )
+                    : FilledButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.grey,
+                      ),
+                child: const Text('다음'),
               ),
             ],
           ),
